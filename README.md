@@ -1,4 +1,4 @@
-# News Sentiment Analysis Project
+# NY Times Sentiment Analysis Project
 
 ## Overview
 ### Using a dataset of news headlines, perform EDA on sentiment trends
@@ -26,8 +26,8 @@
     * science
 
 ## Visualizations
-* Word clouds (most common words for different types of articles)
-* Bar charts for different sentiments
+* Word clouds (most common words for different categories of articles)
+* Bar charts for different sentiments (most frequent terms for each sentiment, using NRC lexicon)
 * Interactive with user-selected...
     * days of the week
     * article category
@@ -35,6 +35,9 @@
 * Network diagram showing "bigrams" (two words commonly seen together) 
     * interactive?  
     * let user search for a bigram and see how many times it appears?
+* Sentiment heatmap by geography
+    * Use byline, Google Maps API, & mapbox for locations
+    * Colorscale on AFIIN lexicon result (range -5 to +5)
 * [Other Samples](https://www.kaggle.com/xvivancos/analyzing-the-lord-of-the-rings-data) (Lord of the Rings analysis project)
 
 <img src=Readme-Images/wordcloud.png width=250></img>
