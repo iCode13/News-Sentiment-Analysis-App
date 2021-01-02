@@ -16,7 +16,7 @@ df = pd.DataFrame(data)
 
 pd.options.display.max_columns = 999
 
-df.to_csv("data/combined_fiction.csv", index=False)
+df.to_csv("data/sample.csv", index=False)
 
 # print(df.tail())
 # print(df.shape[0])
