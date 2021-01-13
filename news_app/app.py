@@ -19,3 +19,13 @@ def index():
         article_headline_layout=article_headline_layout,
         heatmap_data=heatmap_data,
     )
+  
+@app.route("/visualizations")
+def visualizations():
+    return render_template("visualizations.html")
+
+
+@app.route("/analyzer")
+def analyzer():
+    return render_template("analyzer.html")
+
