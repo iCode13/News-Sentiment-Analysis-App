@@ -12,3 +12,13 @@ app = Flask(__name__)
 def index():
     data, layout = article_vs_headline_plot()
     return render_template("index.html", article_headline_data=data, article_headline_layout=layout)
+
+
+@app.route("/visualizations")
+def visualizations():
+    return render_template("visualizations.html")
+
+
+@app.route("/analyzer")
+def analyzer():
+    return render_template("analyzer.html")
