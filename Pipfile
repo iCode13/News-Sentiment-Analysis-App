@@ -16,6 +16,9 @@ nltk = "*"
 nrclex = "*"
 vadersentiment = "*"
 plotly = "*"
+calmap = "*"
+matplotlib = "*"
+mpld3 = "*"
 
 [requires]
 python_version = "3.7"
