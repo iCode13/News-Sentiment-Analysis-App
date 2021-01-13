@@ -14,7 +14,15 @@
     <body>
 
         <div class="header">
-            <h1>Parent HTML for All Pages</h1>
+            <h1 class="main-title">News Sentiment Analysis</h1>
+
+            <nav class ="navigation">
+                <ul>
+                    <li class="nav-list"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-list"><a href="{{ url_for('visualizations') }}">Visualizations</a></li>
+                    <li class="nav-list"><a href="{{ url_for('analyzer') }}">Sentiment Analyzer</a></li>
+                </ul>
+            </nav>
         </div>
 
         {% block content %}{% endblock%}
