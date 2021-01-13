@@ -1,96 +1,155 @@
 import os
 import pandas as pd
-from nltk.tokenize import regexp_tokenize
-from nltk.corpus import stopwords
-from nltk.tag import pos_tag
-from nltk import word_tokenize
-from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.sentiment.util import demo_vader_instance
+from nltk import sent_tokenize
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from nltk import data
-# import nltk
 from ftfy import fix_text
-from nrclex import NRCLex
 from tabulate import tabulate
 
-NLTK_DATA_LOCATION = os.path.join("static", "resources", "nltk_data")
 
-data.path.append(NLTK_DATA_LOCATION)
-
-def get_scores():
-    # Read in sample of headlines
-    FILE_NAME = os.path.join("static", "data", "sentiment_test.csv")
+def get_article_scores(FILE_NAME):
+    # ------Read in news data--------
     df = pd.read_csv(FILE_NAME)
 
+    # -------Sentiment Analysis-------
     # Create list of headlines as strings
-    documents = df["headline"].tolist()
-
-    doc_tokens = []
-    doc_tokens_filtered = []
-
-    stop_words = set(stopwords.words("english"))
+    headlines = df["headline"].tolist()
 
     # Fix encoding issues for non-unicode characters
-    # Create word tokens
-    for i in range(0, len(documents)):
-        documents[i] = fix_text(documents[i])
-        doc_tokens.append(regexp_tokenize(documents[i], "[\w']+"))
-        
-    # Remove stop words and assign part of speech
-    for document in doc_tokens:
-        filtered_tokens = []
-        for word in document:
-            if word.lower() not in stop_words:
-                filtered_tokens.append(pos_tag(word_tokenize(word.lower())))
-        doc_tokens_filtered.append(filtered_tokens)
+    print("\n\nFixing headlines...")
+    for i in range(len(headlines)):
+        if (not (i % 5000)):
+            print(f"Fixing headline {i}")
+        headlines[i] = fix_text(headlines[i])
 
-    # Lemmatize words (identify base words from other forms of the word)
-    lemmatizer = WordNetLemmatizer()
-    doc_tokens_lemmatized = []
-    for document in doc_tokens_filtered:
-        lemmatized_doc = []
-        for token in document:
-            for word, tag in token:
-                if tag.startswith('NN'):
-                    pos = 'n'
-                elif tag.startswith('VB'):
-                    pos = 'v'
-                else:
-                    pos = 'a'
-                lemmatized_doc.append(lemmatizer.lemmatize(word, pos))
-        doc_tokens_lemmatized.append(lemmatized_doc)
-        # print(lemmatized_doc)
-    # print(doc_tokens_lemmatized)        
+    # Create list of article lead paragraphs as strings
+    articles = df["lead_paragraph"].tolist()
 
-    # Sentiment Analysis
+    # Fix encoding issues for non-unicode characters
+    print("\n\nFixing articles...")
+    for i in range(len(articles)):
+        if (not (i % 5000)):
+            print(f"Fixing article {i}")
+        if isinstance(articles[i], str):
+            articles[i] = fix_text(articles[i])
+         
+
+    # Instantiate sentiment analyzer (VADER)
     analyzer = SentimentIntensityAnalyzer()
 
-    document_scores = []
-    for document in doc_tokens_lemmatized:
-        word_scores = []
-        for word in document:
-            word_score = analyzer.polarity_scores(word)
-            word_scores.append(word_score["compound"])
-        document_scores.append(sum(word_scores)/len(word_scores))
-    # print(document_scores)
+    # Analyze headlines
+    print("\n\nScoring headlines...")
+    headline_scores = []
+    for headline in headlines:
+        if isinstance(headline, str):
+            headline_scores.append(analyzer.polarity_scores(headline)["compound"])
+        else:
+            headline_scores.append(0)
 
-    sentence_scores = []
-    for sentence in documents:
-        sentence_scores.append(analyzer.polarity_scores(sentence)["compound"])
-
+    # Tokenize articles into sentences and analyze
+    # Article score is the average of its sentences' scores
+    print("\n\nScoring articles...")
     article_scores = []
-    for article in df["lead_paragraph"].tolist():
+    for article in articles:
         if isinstance(article, str):
-            text = fix_text(article)
-            article_scores.append(analyzer.polarity_scores(text)["compound"])
+            sentences = sent_tokenize(article)
+            sentence_scores = []
+            for sentence in sentences:
+                sentence_scores.append(analyzer.polarity_scores(sentence)["compound"])
+            if len(sentence_scores):
+                article_scores.append(sum(sentence_scores)/len(sentence_scores))
+            else:
+                article_scores.append(0)
         else:
             article_scores.append(0)
 
-    df_scores = pd.DataFrame(list(zip(documents, doc_tokens_lemmatized, document_scores, sentence_scores, article_scores)), columns=["headline", "tokens", "word score", "sentence score", "article score"])
+    # --------Extract keywords to columns----------
+    # Create list of keywords as strings
+    print("\n\nExtracting keywords...")
+    keywords = df["keywords"].tolist()
+
+    # keyword names: 'organizations', 'persons', 'subject', 'glocations', 'creative_works'
+    organizations = []
+    persons = []
+    subject = []
+    glocations = []
+    creative_works = []
+
+    for i in range(len(keywords)):
+        if (not (i % 5000)):
+            print(f"Keywords for article {i}") 
+        text = keywords[i].replace("â€™", "").replace("’", "")
+        keywords_list = eval(fix_text(text))
+        keyword_dict = {
+            "organizations": [],
+            "persons": [],
+            "subject": [],
+            "glocations": [],
+            "creative_works": [],
+        }
+        for keyword in keywords_list:
+            keyword_dict[keyword["name"]].append(keyword["value"])
+        organizations.append(keyword_dict["organizations"])
+        persons.append(keyword_dict["persons"])
+        subject.append(keyword_dict["subject"])
+        glocations.append(keyword_dict["glocations"])
+        creative_works.append(keyword_dict["creative_works"])
+
+    # -----Compile headline and article data into new dataframe--------
+    print("\n\nCompiling dataframe headlines...")
+    df_scores = pd.DataFrame(
+        list(zip(
+            headlines, 
+            articles, 
+            headline_scores, 
+            article_scores,
+            df["pub_date"].tolist(),
+            df["section_name"].tolist(),
+            df["news_desk"].tolist(),
+            organizations, 
+            persons, 
+            subject,
+            glocations,
+            creative_works,
+        )),
+        columns=[
+            "headline", 
+            "article", 
+            "headline_score", 
+            "article_score", 
+            "pub_date",
+            "section_name",
+            "news_desk",
+            "organizations", 
+            "persons", 
+            "subject", 
+            "glocations",
+            "creative_works",
+        ]
+    )
+
+    print(tabulate(df_scores.head(), headers="keys"))
+    return df_scores
 
 
-    print(tabulate(df_scores, headers="keys"))
+def find_articles(FILE_NAME, keyword_type, find):
+    df = pd.read_csv(FILE_NAME)
+    find_df = df.loc[df[keyword_type].apply(lambda x: search_column(x, find))]
+    print(tabulate(find_df, headers="keys"))
+    return find_df
 
-    return
+def search_column(items, search_string):
+    found = False
+    for item in items:
+        if search_string.lower() in item.lower():
+            found = True
+    return found
 
-get_scores()
+
+FILE_NAME_RAW = os.path.join("static", "data", "headlines.csv")
+FILE_NAME_SCORES = os.path.join("static", "data", "headlines_scores_keywords.csv")
+
+get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
+
+# find_articles(FILENAME_SCORES, "glocations", "Virginia")
+
+
