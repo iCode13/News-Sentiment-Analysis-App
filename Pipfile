@@ -11,6 +11,11 @@ pandas = "*"
 tabulate = "*"
 requests = "*"
 gunicorn = "*"
+ftfy = "*"
+nltk = "*"
+nrclex = "*"
+vadersentiment = "*"
+plotly = "*"
 
 [requires]
 python_version = "3.7"
