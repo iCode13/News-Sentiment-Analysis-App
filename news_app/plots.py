@@ -58,4 +58,3 @@ def calendar_heatmap():
     figure_json = json.dumps(mpld3.fig_to_dict(calmap_fig))
     return figure_json
 
-calendar_heatmap()
