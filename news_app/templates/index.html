@@ -25,7 +25,7 @@
     const article_headline_layout = {{ article_headline_layout | safe }}
     Plotly.newPlot("article-headline-plot", article_headline_data, article_headline_layout)
 
-    const heatmap_data = {{ heatmap_data | safe }}
+    {% comment %} const heatmap_data = {{ heatmap_data | safe }} {% endcomment %}
     Plotly.newPlot("calendar-heatmap", heatmap_data)
 </script>
 

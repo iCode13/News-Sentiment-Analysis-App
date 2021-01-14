@@ -50,6 +50,7 @@ def calendar_heatmap():
         fig_kws=dict(figsize=(8, 4)),
     )
 
-    figure = json.dumps(calmap_fig, cls=plotly.utils.PlotlyJSONEncoder)
+    figure_mpld3 = mpld3.fig_to_dict(calmap_fig)
+    figure_json = json.dumps(figure_mpld3, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return figure
+    return figure_json
