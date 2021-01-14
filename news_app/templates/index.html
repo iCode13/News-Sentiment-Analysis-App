@@ -8,25 +8,10 @@
         </div>
     </div>
     
-    <div class="row">
-        <div class="col-md-12" id="article-headline-plot">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12" id="calendar-heatmap">
-        </div>
-    </div>
+    
 
 </div>
 
-<script>
-    const article_headline_data = {{ article_headline_data | safe }}
-    const article_headline_layout = {{ article_headline_layout | safe }}
-    Plotly.newPlot("article-headline-plot", article_headline_data, article_headline_layout)
 
-    {% comment %} const heatmap_data = {{ heatmap_data | safe }} {% endcomment %}
-    Plotly.newPlot("calendar-heatmap", heatmap_data)
-</script>
 
 {% endblock %}
