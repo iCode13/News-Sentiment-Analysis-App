@@ -19,6 +19,11 @@ plotly = "*"
 calmap = "*"
 matplotlib = "*"
 mpld3 = "*"
+regex = "*"
+pycountry = "*"
+us = "*"
+datetime = "*"
+seed = "*"
 
 [requires]
 python_version = "3.7"
