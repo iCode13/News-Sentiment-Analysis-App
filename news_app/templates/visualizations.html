@@ -24,15 +24,16 @@
     const article_headline_layout = {{ article_headline_layout | safe }}
     Plotly.newPlot("article-headline-plot", article_headline_data, article_headline_layout)
 
-    d3.json("static/resources/calendar_heatmap.json").then((plot_data) => {
-    console.log("hello")
-    console.log(plot_data)
-    Plotly.newPlot("calendar-heatmap", plot_data)
-    })
+    // d3.json("static/resources/calendar_heatmap.json").then((plot_data) => {
+    //    console.log("hello")
+    //    console.log(plot_data)
+    //    Plotly.newPlot("calendar-heatmap", plot_data)
+    // })
 
     // src="{{ url_for('static', filename='js/viz_app.js') }}"
-    // const heatmap_data = {{ heatmap_data | safe }}
-    // Plotly.newPlot("calendar-heatmap", heatmap_data)
+    
+    const heatmap_data = {{ heatmap_data | safe }}
+    mpld3.draw_figure("calendar-heatmap", heatmap_data)
 </script>
 
 {% endblock %}

@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt, mpld3
 
-FILE_PATH = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
+FILE_PATH = os.path.join("static", "data", "headlines_scores_keywords.csv")
 
 def article_vs_headline_plot():
 
@@ -30,7 +30,7 @@ def calendar_heatmap():
 
     # Add datetime column that converts pub_date to timestamp
     df["datetime"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%Y-%m-%d"))
-
+    df["datetime"] = df["datetime"].apply(lambda x: pd.to_datetime(x))
     # Create series where values are the average article score for that day
     # And the indexes are the unique instances of days in the data
     avg_day_scores = []
@@ -38,6 +38,8 @@ def calendar_heatmap():
         avg_day_scores.append(df["headline_score"].loc[df["datetime"] == day].mean())
     date_series = pd.Series(data=avg_day_scores, index=df["datetime"].unique())
 
+    
+    
     # Use calmap to create calendar plot -- returns matplotlib figure and axes array
     calmap_fig, axes = calmap.calendarplot(
         date_series,
@@ -50,7 +52,10 @@ def calendar_heatmap():
         fig_kws=dict(figsize=(8, 4)),
     )
 
-    figure_mpld3 = mpld3.fig_to_dict(calmap_fig)
-    figure_json = json.dumps(figure_mpld3, cls=plotly.utils.PlotlyJSONEncoder)
+    # figure_mpld3 = mpld3.fig_to_dict(calmap_fig)
+    # figure_json = json.dumps(figure_mpld3, cls=plotly.utils.PlotlyJSONEncoder)
 
+    figure_json = json.dumps(mpld3.fig_to_dict(calmap_fig))
     return figure_json
+
+calendar_heatmap()
