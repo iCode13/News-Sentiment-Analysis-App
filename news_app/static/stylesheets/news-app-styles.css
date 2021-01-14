@@ -1,0 +1,66 @@
+/* format header */
+.header {
+    padding: .5em;
+    background-image: url("../img/newspaper.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom left;
+}
+
+/* center header and add padding */
+.header h1 {
+    text-align: center;
+    padding-top: 80px;
+    font-family: "Times New Roman", Times Extrabold, serif;
+    font-size: 70px;
+    color: maroon;
+}
+
+/* define navigation block */
+.navigation {
+    display: block;
+    height: 150px;
+}
+/* remove bullets, margin, padding, and text align */
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+/* display list items horizontally */
+.navigation li {
+    display: inline-block;
+    margin-left: 30px;
+    position: relative;
+}
+
+/* define block styling for the links */
+.navigation a {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Times New Roman", Times Extrabold, serif;
+    font-size: 20px;
+    color: maroon;
+}
+
+nav a:hover {
+    color: maroon;
+}
+
+nav a::before {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 0%;
+    background-color: maroon;
+    position: absolute;
+    transition: all ease-in-out 300ms;
+}
+
+nav a:hover::before {
+    width: 100%
+}
