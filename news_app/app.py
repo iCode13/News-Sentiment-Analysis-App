@@ -3,9 +3,10 @@ import requests
 import pandas as pd
 import os
 from datetime import datetime
+import json
 
 from news_app.plots import article_vs_headline_plot, calendar_heatmap
-from news_app.sentiment import user_analysis
+from news_app.sentiment import user_analysis, emotion_plotter
 
 # from news_app.sentiment import get_scores
 
@@ -48,6 +49,14 @@ def user_sentiment():
     print(user_text)
     print(type(user_text))
 
-    response = user_analysis(user_text)
+    gauge_data = user_analysis(user_text)
+    emotion_plot_data, emotion_plot_layout = emotion_plotter(user_text) 
 
+    response_dict = {
+        "gauge_data": gauge_data,
+        "emotion_plot_data": emotion_plot_data,
+        "emotion_plot_layout": emotion_plot_layout
+    }
+
+    response = json.dumps(response_dict)
     return response

@@ -19,11 +19,11 @@ function userAnalysis() {
 			console.log(`Looks like there was a problem. Status code: ${response.status}`);
 			return;
 		}
-		response.json().then(function (gaugeData) {
-			console.log("Gauge Data:")
-            console.log(gaugeData[0])
+		response.json().then(function (responseJson) {
+            console.log(responseJson)
             
-            Plotly.newPlot("user-analysis-gauge", gaugeData)
+			Plotly.newPlot("user-analysis-gauge", responseJson.gauge_data)
+			Plotly.newPlot("user-analysis-emotions", responseJson.emotion_plot_data, responseJson.emotion_plot_layout)
 
 
 

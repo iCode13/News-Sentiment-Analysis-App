@@ -5,6 +5,21 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from ftfy import fix_text
 from tabulate import tabulate
 import json
+from nrclex import NRCLex
+from nltk.tokenize import regexp_tokenize
+from nltk.corpus import stopwords
+from nltk.tag import pos_tag
+from nltk import word_tokenize
+from nltk.stem.wordnet import WordNetLemmatizer
+import nltk
+from nltk import data
+from nltk.corpus import wordnet as wn
+
+# NLTK_DATA_LOCATION = os.path.join("static", "resources", "nltk_data")
+# data.path.append(NLTK_DATA_LOCATION)
+# print(nltk.data.path)
+# print(nltk.corpus)
+
 
 
 def get_article_scores(FILE_NAME):
@@ -174,10 +189,96 @@ def user_analysis(text):
         },
     }]
 
-    gauge_data_json = json.dumps(gauge_data)
-    return gauge_data_json
+    return gauge_data
 
+def emotion_plotter(text):
+    # text = "Astronaut science is best most perfect great thing"
+    print(text)
 
+    # ---EMOTION ANALYSIS---
+    # Tokenize text
+    text_tokens = []
+    text_tokens.append(regexp_tokenize(text.lower(), "[\w']+")) 
+    # print(text_tokens[0])
+
+    # Remove stop words and assign part of speech
+    filtered_tokens = []
+    for token in text_tokens[0]:
+        if token not in stopwords.words('english'):
+            filtered_tokens.append(pos_tag(word_tokenize(token)))
+    # print(filtered_tokens)
+
+    # Lemmatize words (identify base words from other forms of the word)
+    lemmatizer = WordNetLemmatizer()
+    lemmatized_tokens = []
+    morphy_tag = {'NN':'n', 'JJ':'a', 'VB':'v', 'RB':'r'}
+    for token in filtered_tokens:
+        for word, tag in token:
+            if tag in morphy_tag.keys():
+                morphy_pos = morphy_tag[tag]
+            else:
+                pos = ''
+            if morphy_pos in ["a", "n", "v"]:
+                lemmatized_tokens.append(lemmatizer.lemmatize(word, pos=morphy_pos))
+            else:
+                lemmatized_tokens.append(lemmatizer.lemmatize(word))
+    # print(lemmatized_tokens)
+        
+    # Join lemmatized words back into sentence
+    lemmatized_text = " ".join(lemmatized_tokens)
+    print(lemmatized_text)
+
+    print
+    # Get emotions
+    text_object = NRCLex(lemmatized_text)
+    # print(text_object.words)
+    # print(text_object.affect_dict)
+    # print(text_object.raw_emotion_scores)
+    # print(text_object.affect_frequencies)
+
+    # Create emotion data for plot
+    emotion_data = {"words": [], "emotions": []}
+    for word, emotions in text_object.affect_dict.items():
+        for emotion in emotions:
+            emotion_data["words"].append(word)
+            emotion_data["emotions"].append(emotion.title())
+
+    print(emotion_data)
+
+    emotion_trace = {
+        "x": emotion_data["words"],
+        "y": emotion_data["emotions"],
+        "mode": "markers",
+        "marker": {"size": 40}
+    }
+
+    emotion_plot_data = [emotion_trace]
+
+    emotion_plot_layout = {
+        "xaxis": {
+            "type": "category",
+            "title": "Your Words",
+        },
+        "yaxis": {
+            "type": "category",
+            "title": "Emotions",
+            "categoryorder": "array",
+            "categoryarray": [
+                "Disgust", 
+                "Anger", 
+                "Fear", 
+                "Sadness", 
+                "Negative",
+                "Anticipation",
+                "Positive",
+                "Surprise",
+                "Trust",
+                "Joy",
+            ]
+        }
+    }
+
+    return emotion_plot_data, emotion_plot_layout
 
 # FILE_NAME_RAW = os.path.join("static", "data", "headlines.csv")
 # FILE_NAME_SCORES = os.path.join("static", "data", "headlines_scores_keywords.csv")
@@ -185,6 +286,8 @@ def user_analysis(text):
 # get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
 
 # find_articles(FILENAME_SCORES, "glocations", "Virginia")
+
+
 
 
 
