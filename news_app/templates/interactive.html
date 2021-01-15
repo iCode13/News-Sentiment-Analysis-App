@@ -4,48 +4,37 @@
 
      <!-- Begin Form -->
      <br/>
-     <br/>      
-     <form action="/analyzer" method="POST" style="width: 500px; margin: auto">
+     <br/>
 
      <!-- News Analyzer -->
-       <div class="form-group row was-validated">
-         <label class="col-lg-3 col-form-label form-control-label text-muted"
-           >Sentiment Analyzer:</label
-         >
-       <div class="col-lg-9">
-         <input
-             class="form-control"
-             type="text"
-             id="un"
-             name="news_analyzer"
-             maxLength="150"
-             placeholder="Enter your own news headline to analyze it's sentiment!"
-           />
+     <!-- <form action="/analyzer" method="POST" style="width: 500px; margin: auto"> -->
+     
+       <div class="row">
+         <label for="user-text-input" class="text-muted">Sentiment Analyzer:</label>
+       <div class="col-lg-4">
+          <input             
+              type="text"
+              id="user-text-input"
+              name="news_analyzer"
+              maxLength="150"
+              placeholder="Input your headline here to get a personalized sentiment analysis!"
+            />
            <br/>
-           <div class="invalid-feedback">
-             Required.
-           </div>
+           <br/>
+           <input type="submit" value="Analyze" id="text-submit-button" onclick="userAnalysis()"/>
          </div> 
        </div>
-
-       <!-- Cancel and Submit Buttons -->
-       <div class="form-group row">
-        <label class="col-lg-3 col-form-label form-control-label"></label>
-         <div class="col-lg-9">
-           <input
-             type="reset"
-             class="btn btn-outline-secondary mr-2"
-             value="Cancel"
-           />
-           <input type="submit" value="Analyze" />
-         </div>
-       </div>
+       
+      
+      <!-- User Analysis Output Display -->
+      <div class="row" id="user-analysis-output">
+        <div class="col-md-6" id="user-analysis-gauge"></div>
+      </div>
      <br/>
      <br/>
-     <br/>
-     <br/>
-
       <!-- News Search -->
+      <!-- <form action="/analyzer" method="POST" style="width: 500px; margin: auto"> -->
+      
        <div class="form-group row was-validated">
          <label class="col-lg-3 col-form-label form-control-label text-muted"
           >News Search:</label
@@ -73,7 +62,7 @@
            <input type="submit" value="Search" />
          </div>
        </div>
-    </form>
+    
     
 </div>
 

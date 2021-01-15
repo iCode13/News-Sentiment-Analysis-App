@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 
 from news_app.plots import article_vs_headline_plot, calendar_heatmap
+from news_app.sentiment import user_analysis
 
 # from news_app.sentiment import get_scores
 
@@ -38,3 +39,15 @@ def visualizations():
 @app.route("/interactive")
 def interactive():
     return render_template("interactive.html")
+
+
+@app.route("/interactive/user-sentiment", methods=["POST", "GET"])
+def user_sentiment():
+    print("Running user_sentiment in app.py")
+    user_text = request.get_json()
+    print(user_text)
+    print(type(user_text))
+
+    response = user_analysis(user_text)
+
+    return response

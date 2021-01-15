@@ -4,6 +4,7 @@ from nltk import sent_tokenize
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from ftfy import fix_text
 from tabulate import tabulate
+import json
 
 
 def get_article_scores(FILE_NAME):
@@ -148,7 +149,7 @@ def search_column(items, search_string):
 def user_analysis(text):
     # Instantiate sentiment analyzer (VADER)
     analyzer = SentimentIntensityAnalyzer()
-    overall_sentiment = analyzer.polarity_scores(sentence)["compound"]
+    overall_sentiment = analyzer.polarity_scores(text)["compound"]
 
     gauge_data = [{
         "domain": {"x": [0, 1], "y": [0, 1]},
@@ -158,14 +159,23 @@ def user_analysis(text):
         "mode": "gauge+number+delta",
         "gauge": {
             "axis": {
-                "range": [-1, 1]
+                "range": [-1, 1],
                 "nticks": 10,
             },
+            "bar": {"color": "midnightblue"},
+            "steps": [
+                {"range": [-1, -.6], "color": "firebrick"},
+                {"range": [-.6, -.2], "color": "darkorange"},
+                {"range": [-.2, .2], "color": "gold"},
+                {"range": [.2, .6], "color": "yellowgreen"},
+                {"range": [.6, 1.1], "color": "forestgreen"},
+            ],
             "shape": "angular",
         },
     }]
 
-    return gauge_data
+    gauge_data_json = json.dumps(gauge_data)
+    return gauge_data_json
 
 
 
