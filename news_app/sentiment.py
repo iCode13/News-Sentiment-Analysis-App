@@ -249,7 +249,7 @@ def emotion_plotter(text):
         "x": emotion_data["words"],
         "y": emotion_data["emotions"],
         "mode": "markers",
-        "marker": {"size": 40}
+        "marker": {"size": 40, "color": "midnightblue",}
     }
 
     emotion_plot_data = [emotion_trace]
