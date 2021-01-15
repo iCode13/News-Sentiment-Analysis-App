@@ -1,16 +1,16 @@
 /* format header */
 .header {
     padding: .5em;
-    background-image: url("../img/newspaper.jpg");
+    background-image: url("../img/news.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
-    background-position: bottom left;
+    background-position: center;
 }
 
 /* center header and add padding */
 .header h1 {
     text-align: center;
-    padding-top: 80px;
+    padding-top: 75px;
     font-family: "Times New Roman", Times Extrabold, serif;
     font-size: 70px;
     color: maroon;
@@ -43,7 +43,8 @@
     text-align: center;
     text-transform: uppercase;
     font-family: "Times New Roman", Times Extrabold, serif;
-    font-size: 20px;
+    font-size: 23px;
+    font-weight: 875;
     color: maroon;
 }
 
@@ -62,5 +63,6 @@ nav a::before {
 }
 
 nav a:hover::before {
-    width: 100%
+    width: 100%;
 }
+
