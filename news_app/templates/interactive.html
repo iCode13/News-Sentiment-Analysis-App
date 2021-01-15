@@ -1,0 +1,82 @@
+{% extends "parent.html" %}
+{% block content %}
+<div class="container">
+
+     <!-- Begin Form -->
+     <br/>
+     <br/>      
+     <form action="/analyzer" method="POST" style="width: 500px; margin: auto">
+
+     <!-- News Analyzer -->
+       <div class="form-group row was-validated">
+         <label class="col-lg-3 col-form-label form-control-label text-muted"
+           >Sentiment Analyzer:</label
+         >
+       <div class="col-lg-9">
+         <input
+             class="form-control"
+             type="text"
+             id="un"
+             name="news_analyzer"
+             maxLength="150"
+             placeholder="Enter your own news headline to analyze it's sentiment!"
+           />
+           <br/>
+           <div class="invalid-feedback">
+             Required.
+           </div>
+         </div> 
+       </div>
+
+       <!-- Cancel and Submit Buttons -->
+       <div class="form-group row">
+        <label class="col-lg-3 col-form-label form-control-label"></label>
+         <div class="col-lg-9">
+           <input
+             type="reset"
+             class="btn btn-outline-secondary mr-2"
+             value="Cancel"
+           />
+           <input type="submit" value="Analyze" />
+         </div>
+       </div>
+     <br/>
+     <br/>
+     <br/>
+     <br/>
+
+      <!-- News Search -->
+       <div class="form-group row was-validated">
+         <label class="col-lg-3 col-form-label form-control-label text-muted"
+          >News Search:</label
+         >
+       <div class="col-lg-9">
+         <input
+             class="form-control"
+             type="text"
+             id="un"
+             name="news_analyzer"
+             placeholder="Enter text to search for in the news."
+           />
+         </div>
+       </div>
+       
+       <!-- Cancel and Submit Buttons -->
+       <div class="form-group row">
+        <label class="col-lg-3 col-form-label form-control-label"></label>
+         <div class="col-lg-9">
+           <input
+             type="reset"
+             class="btn btn-outline-secondary mr-2"
+             value="Cancel"
+           />
+           <input type="submit" value="Search" />
+         </div>
+       </div>
+    </form>
+    
+</div>
+
+     
+
+{% endblock %}

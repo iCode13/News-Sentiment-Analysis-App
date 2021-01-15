@@ -35,6 +35,6 @@ def visualizations():
   )
 
 
-@app.route("/analyzer")
-def analyzer():
-    return render_template("analyzer.html")
+@app.route("/interactive")
+def interactive():
+    return render_template("interactive.html")
