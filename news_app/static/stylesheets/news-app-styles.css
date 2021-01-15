@@ -3,6 +3,7 @@ input[type=text] {
  }
 
 
+/* ---- nav bar for all pages ---- */
 /* format header */
 .header {
     padding: .5em;
@@ -53,10 +54,12 @@ input[type=text] {
     color: maroon;
 }
 
+/* hover effect color */
 nav a:hover {
     color: maroon;
 }
 
+/* bar effect over each link */
 nav a::before {
     content: '';
     display: block;
@@ -67,7 +70,24 @@ nav a::before {
     transition: all ease-in-out 300ms;
 }
 
+/* bar effect without hover */
 nav a:hover::before {
     width: 100%;
 }
 
+
+/* ---- visualzation page ---- */
+#visualizations {
+    max-width: 90%;
+}
+
+.plots {
+    height: 100%;
+    width: 100%;
+}
+
+.summary {
+    margin-top: 100px;
+    font-family: 'Times New Roman', Times Bold, serif;
+    font-size: 18px;
+}
