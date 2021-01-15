@@ -8,15 +8,17 @@ import json
 from news_app.plots import article_vs_headline_plot, calendar_heatmap
 from news_app.sentiment import user_analysis, emotion_plotter
 
-# from news_app.sentiment import get_scores
+from nltk import data
+
+NLTK_DATA_LOCATION = os.path.join("news_app", "static", "resources", "nltk_data")
+data.path.append(NLTK_DATA_LOCATION)
+
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
     return render_template("index.html")
-
-    
   
 @app.route("/visualizations")
 def visualizations():
