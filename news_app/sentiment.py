@@ -145,11 +145,36 @@ def search_column(items, search_string):
     return found
 
 
-FILE_NAME_RAW = os.path.join("static", "data", "headlines.csv")
-FILE_NAME_SCORES = os.path.join("static", "data", "headlines_scores_keywords.csv")
+def user_analysis(text):
+    # Instantiate sentiment analyzer (VADER)
+    analyzer = SentimentIntensityAnalyzer()
+    overall_sentiment = analyzer.polarity_scores(sentence)["compound"]
 
-get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
+    gauge_data = [{
+        "domain": {"x": [0, 1], "y": [0, 1]},
+        "value": overall_sentiment,
+        "title": {"text": "Overall Sentiment"},
+        "type": "indicator",
+        "mode": "gauge+number+delta",
+        "gauge": {
+            "axis": {
+                "range": [-1, 1]
+                "nticks": 10,
+            },
+            "shape": "angular",
+        },
+    }]
+
+    return gauge_data
+
+
+
+# FILE_NAME_RAW = os.path.join("static", "data", "headlines.csv")
+# FILE_NAME_SCORES = os.path.join("static", "data", "headlines_scores_keywords.csv")
+
+# get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
 
 # find_articles(FILENAME_SCORES, "glocations", "Virginia")
+
 
 
