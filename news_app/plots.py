@@ -13,12 +13,21 @@ def article_vs_headline_plot(df):
     # Read in data
     # df = pd.read_csv(FILE_PATH)
 
-    scores_no_zeros = df[["headline_score", "article_score"]].loc[(df["headline_score"] != 0) & (df["article_score"] != 0) & (df["section_name"] == "U.S.")]
-
+    scores_no_zeros = df[["headline_score", "article_score", "news_desk"]].loc[(df["headline_score"] != 0) & (df["article_score"] != 0) & (df["section_name"] == "U.S.")]
+    # ['National' 'Business' 'Politics' 'Science' 'Climate']
+    desk_colors_dict = {
+        "National": "midnightblue",
+        "Business": "gold",
+        "Politics": "firebrick",
+        "Science": "forestgreen",
+        "Climate": "darkorange"
+    }
+    desk_colors = scores_no_zeros["news_desk"].map(desk_colors_dict)
     trace1 = {
         "x": scores_no_zeros["headline_score"],
         "y": scores_no_zeros["article_score"],
         "mode": "markers",
+        "marker": {"color": desk_colors}
     }
 
     plot_data = [trace1,]
