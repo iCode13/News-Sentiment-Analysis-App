@@ -171,7 +171,7 @@ def find_articles(keyword_type, find_string):
     
     # Create gauge data for each article found
     gauges = []
-    for article_score in articles:
+    for article_score in article_scores:
         gauge_data = [{
             "domain": {"x": [0, 1], "y": [0, 1]},
             "value": article_score,
