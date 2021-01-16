@@ -91,3 +91,33 @@ nav a:hover::before {
     font-family: 'Times New Roman', Times Bold, serif;
     font-size: 18px;
 }
+
+/* ---- index page ---- */
+.main-summary p {
+    font-family: "Times New Roman", Times Extrabold, serif;
+    color: black;
+    font-size: 18px;
+}
+
+.contributers{
+    text-align: center;
+    font-family: "Times New Roman", Times Extrabold, serif;
+    color: black;
+}
+
+.contributers p {
+    font-size: 20px;
+}
+
+.citations{
+    text-align: center;
+    font-family: "Times New Roman", Times Extrabold, serif;
+    color: black;
+    margin-bottom: 40px;
+}
+
+.citations ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
