@@ -23,6 +23,7 @@ def article_vs_headline_plot(df):
         "Climate": "darkorange"
     }
     desk_colors = scores_no_zeros["news_desk"].map(desk_colors_dict)
+
     trace1 = {
         "x": scores_no_zeros["headline_score"],
         "y": scores_no_zeros["article_score"],

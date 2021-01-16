@@ -64,3 +64,15 @@ def user_sentiment():
 
     response = json.dumps(response_dict)
     return response
+
+@app.route("/interactive/article-search", methods=["POST", "GET"])
+def article_search():
+    print("Running article_search in app.py")
+    search_json = request.get_json()
+    print(search_json)
+    print(type(search_json))
+
+    find_articles_dict = find_articles("glocations", "Boston")
+
+    response = json.dumps(find_articles_dict)
+    return response

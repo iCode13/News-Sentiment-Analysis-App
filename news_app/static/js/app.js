@@ -24,6 +24,38 @@ function userAnalysis() {
             
 			Plotly.newPlot("user-analysis-gauge", responseJson.gauge_data)
 			Plotly.newPlot("user-analysis-emotions", responseJson.emotion_plot_data, responseJson.emotion_plot_layout)
+		})
+	})
+	.catch(function (error) {
+		console.log("Fetch error: " + error)
+	})
+}
+
+
+function userAnalysis() {
+    console.log("Running user analysis in app.py")
+    var userText = d3.select("#user-text-input").property("value")
+    console.log(`User text: ${userText}`)
+
+    fetch(`${window.origin}/interactive/user-sentiment`, {
+		method: "POST",
+		credentials: "include",
+		body: JSON.stringify(userText),
+		cache: "no-cache",
+		headers: new Headers({
+			"content-type": "application/json"
+		})
+	})
+	.then(function (response) {
+		if (response.status !== 200) {
+			console.log(`Looks like there was a problem. Status code: ${response.status}`);
+			return;
+		}
+		response.json().then(function (responseJson) {
+            console.log(responseJson)
+            
+			Plotly.newPlot("user-analysis-gauge", responseJson.gauge_data)
+			Plotly.newPlot("user-analysis-emotions", responseJson.emotion_plot_data, responseJson.emotion_plot_layout)
 
 
 
@@ -74,4 +106,3 @@ function userAnalysis() {
 		console.log("Fetch error: " + error)
 	})
 }
-

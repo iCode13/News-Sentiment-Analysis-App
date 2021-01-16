@@ -147,11 +147,98 @@ def get_article_scores(FILE_NAME):
     return df_scores
 
 
-def find_articles(FILE_NAME, keyword_type, find):
+def find_articles(keyword_type, find_string):
+    FILE_NAME = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
     df = pd.read_csv(FILE_NAME)
-    find_df = df.loc[df[keyword_type].apply(lambda x: search_column(x, find))]
+
+    find_df = df.loc[df[keyword_type].apply(lambda x: search_column(x, find_string))]
     print(tabulate(find_df, headers="keys"))
-    return find_df
+
+    # -------Sentiment Analysis-------
+    dates = df["pub_date"].tolist()
+
+    # Create list of headlines as strings
+    headlines = df["headline"].tolist()
+
+    # Fix encoding issues for non-unicode characters
+    print("\n\nFixing headlines...")
+    for i in range(len(headlines)):
+        if (not (i % 5000)):
+            print(f"Fixing headline {i}")
+        headlines[i] = fix_text(headlines[i])
+
+    # Create list of article lead paragraphs as strings
+    articles = df["lead_paragraph"].tolist()
+
+    # Fix encoding issues for non-unicode characters
+    print("\n\nFixing articles...")
+    for i in range(len(articles)):
+        if (not (i % 5000)):
+            print(f"Fixing article {i}")
+        if isinstance(articles[i], str):
+            articles[i] = fix_text(articles[i])
+
+    # Instantiate sentiment analyzer (VADER)
+    analyzer = SentimentIntensityAnalyzer()
+
+    # Tokenize articles into sentences and analyze
+    # Article score is the average of its sentences' scores
+    print("\n\nScoring articles...")
+    article_scores = []
+    for article in articles:
+        if isinstance(article, str):
+            sentences = sent_tokenize(article)
+            sentence_scores = []
+            for sentence in sentences:
+                sentence_scores.append(analyzer.polarity_scores(sentence)["compound"])
+            if len(sentence_scores):
+                article_scores.append(sum(sentence_scores)/len(sentence_scores))
+            else:
+                article_scores.append(0)
+        else:
+            article_scores.append(0)
+    
+    # Create gauge data for each article found
+    gauges = []
+    for article_score in articles:
+        gauge_data = [{
+            "domain": {"x": [0, 1], "y": [0, 1]},
+            "value": article_score,
+            "title": {"text": "Article Senti-meter"},
+            "type": "indicator",
+            "mode": "gauge+number+delta",
+            "gauge": {
+                "axis": {
+                    "range": [-1, 1],
+                    "nticks": 10,
+                },
+                "bar": {"color": "midnightblue"},
+                "steps": [
+                    {"range": [-1, -.6], "color": "firebrick"},
+                    {"range": [-.6, -.2], "color": "darkorange"},
+                    {"range": [-.2, .2], "color": "gold"},
+                    {"range": [.2, .6], "color": "yellowgreen"},
+                    {"range": [.6, 1.1], "color": "forestgreen"},
+                ],
+                "shape": "angular",
+            },
+        }]
+        gauges.append(gauge_data)
+
+    find_articles_dict = {
+        "dates": dates,
+        "headlines": headlines,
+        "articles": articles,
+        "gauges": gauges,
+    }
+    print(find_articles_dict)
+    
+    return find_articles_dict
+
+
+find_articles(FILENAME_SCORES, "glocations", "Virginia")
+
+
 
 def search_column(items, search_string):
     found = False
@@ -280,8 +367,6 @@ def emotion_plotter(text):
 
     return emotion_plot_data, emotion_plot_layout
 
-# FILE_NAME_RAW = os.path.join("static", "data", "headlines.csv")
-# FILE_NAME_SCORES = os.path.join("static", "data", "headlines_scores_keywords.csv")
 
 # get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
 
