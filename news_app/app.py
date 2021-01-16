@@ -12,6 +12,8 @@ from nltk import data
 
 NLTK_DATA_LOCATION = os.path.join("news_app", "static", "resources", "nltk_data")
 data.path.append(NLTK_DATA_LOCATION)
+NLTK_DATA_LOCATION = os.path.join(".", "news_app", "static", "resources", "nltk_data")
+data.path.append(NLTK_DATA_LOCATION)
 
 
 app = Flask(__name__)
