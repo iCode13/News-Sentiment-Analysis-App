@@ -19,20 +19,29 @@ pd.set_option("display.max_rows", None)
 
 path = "files/headlines.csv"
 
+# Read news article data into dataframe and exclude rows with NaN in "lead_paragraph" column (200+ rows excluded)
 df = pd.read_csv(path)
+df2 = df[df["lead_paragraph"].notna()]
 
 # Bigrams
 # Use TF-IDF method to generate bigrams and trigrams
 abstract = df["abstract"]
 headline = df["headline"]
+lead = df["lead_paragraph"]
 
 stoplist = stopwords.words("english")
 
-# GET ABSTRACT bigrams - Applying TFIDF
+# Get ABSTRACT bigrams - Applying TFIDF
 # vectorizer2 = TfidfVectorizer(stop_words=stoplist, ngram_range=(2, 2))
 # X2 = vectorizer2.fit_transform(txt1)
 # scores = X2.toarray()
 # print("Scores : \n", scores)
+
+# Get LEAD PARAGRAPH bigrams
+# vectorizer2 = CountVectorizer(stop_words=stoplist, ngram_range=(2, 2))
+# X2 = vectorizer2.fit_transform(lead_paragraph)
+# features2 = vectorizer2.get_feature_names()
+# print("X2 : \n", X2.toarray())
 
 # Get HEADLINE bigrams
 vectorizer2 = CountVectorizer(stop_words=stoplist, ngram_range=(2, 2))
