@@ -40,8 +40,8 @@
          <label for="article-search-input" class="text-muted">Article Search:</label>
        <div class="col-lg-4">
        <div class="input-box">
-                 <label for="keyword-type" class="text-muted">Select a Keyword Type:</label>
-                        <select name="keyword" id="keyword-type" >
+                        <select name="keyword" id="keyword-type">
+                                <option value="">Search Categories</option>
                                 <option value="persons">Person</option>
                                 <option value="glocations">Location</option>
                                 <option value="subject">Subject</option>
@@ -57,7 +57,7 @@
             />
            <br/>
            <br/>
-           <input type="submit" value="Analyze" id="search-submit-button" onclick="articleSearch()"/>
+           <input type="submit" value="Search" id="search-submit-button" onclick="articleSearch()"/>
          </div> 
       </div>
       <br/>
