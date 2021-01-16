@@ -32,15 +32,22 @@ function userAnalysis() {
 }
 
 
-function userAnalysis() {
-    console.log("Running user analysis in app.py")
-    var userText = d3.select("#user-text-input").property("value")
-    console.log(`User text: ${userText}`)
+function articleSearch() {
+    console.log("Running articleSearch() in app.py")
+	var keywordType = d3.select("#keyword-type").property("value")
+	var searchInput = d3.select("#article-search-input").property("value")
+	console.log(`Keyword Type: ${keywordType}`)
+	console.log(`Search Input: ${searchInput}`)
 
-    fetch(`${window.origin}/interactive/user-sentiment`, {
+	searchDict = {
+		keyword: keywordType,
+		find: searchInput,
+	}
+
+    fetch(`${window.origin}/interactive/article-search`, {
 		method: "POST",
 		credentials: "include",
-		body: JSON.stringify(userText),
+		body: JSON.stringify(searchDict),
 		cache: "no-cache",
 		headers: new Headers({
 			"content-type": "application/json"
@@ -52,19 +59,67 @@ function userAnalysis() {
 			return;
 		}
 		response.json().then(function (responseJson) {
-            console.log(responseJson)
+			console.log(responseJson)
+			
             
-			Plotly.newPlot("user-analysis-gauge", responseJson.gauge_data)
-			Plotly.newPlot("user-analysis-emotions", responseJson.emotion_plot_data, responseJson.emotion_plot_layout)
+			var clear_results = d3.select("#article-search-output")
+                if (clear_results._groups[0][0].hasChildNodes()) {
+					clear_results.selectAll("div").remove()
+					}
+			
+			var outputDiv = d3.select("#article-search-output")
 
+			for (i = 0; i < responseJson.articles.length; i++) {
+				newRow = outputDiv.append("div")
+					.classed("row", true)
+					.classed("ouput-div", true)
+					.property("id", `row-${i}`)
+					.attr("dy", "1em")
+				
+				articleColumn = newRow.append("div")
+					.classed("col-md-6", true)
+					.classed("ouput-div", true)
+					.property("id", `article-${i}`)
 
+				articleColumn.append("h4")
+					.text(responseJson.headlines[i])
 
-			// let clear_results = d3.select("#dice-table")
-            //     if (clear_results._groups[0][0].hasChildNodes()) {
-			// 		clear_results.selectAll("table").remove()
-			// 		}
+				articleLocations = eval(responseJson.locations[i])
+				articleDate = responseJson.dates[i]
 
-			// var table = d3.select('#dice-table')
+				articleByline = articleColumn.append("p")
+					.classed("lead", true)
+					.text(function () {
+						let bylineString = ""
+						bylineString += articleDate
+						console.log(bylineString)
+						if (articleLocations.length) {
+							articleLocations.forEach(location => {
+								bylineString += ` | ${location}`
+							})
+						}
+
+						return bylineString
+					})
+					
+
+				articleDiv = articleColumn.append("div")
+					.classed("article-scrollable", true)
+
+				articleDiv.append("p")
+					.text(`${responseJson.articles[i]}`)
+
+				gaugeColumn = newRow.append("div")
+					.classed("col-md-6", true)
+					.classed("ouput-div", true)
+					.property("id", `gauge-${i}`)
+
+				Plotly.newPlot(`gauge-${i}`, responseJson.gauges[i])
+
+				
+			}
+			
+					// var table = d3.select('#dice-table')
 			// 	.append('table')
 			// 	.classed("center", true)
 			// var thead = table.append('thead')

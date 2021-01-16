@@ -148,55 +148,26 @@ def get_article_scores(FILE_NAME):
 
 
 def find_articles(keyword_type, find_string):
+    print("running find_articles in sentiment.py")
+    print(f"Keyword type: {keyword_type} | Find string: {find_string}")
+
     FILE_NAME = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
     df = pd.read_csv(FILE_NAME)
 
-    find_df = df.loc[df[keyword_type].apply(lambda x: search_column(x, find_string))]
+    find_df = df.loc[df[keyword_type].apply(lambda x: search_column(eval(x), find_string))]
+    print(f"Found {len(find_df)} articles -- sampling 5 random articles")
+
+    if len(find_df) > 5:
+        find_df = find_df.sample(5)
+
     print(tabulate(find_df, headers="keys"))
 
-    # -------Sentiment Analysis-------
-    dates = df["pub_date"].tolist()
-
-    # Create list of headlines as strings
-    headlines = df["headline"].tolist()
-
-    # Fix encoding issues for non-unicode characters
-    print("\n\nFixing headlines...")
-    for i in range(len(headlines)):
-        if (not (i % 5000)):
-            print(f"Fixing headline {i}")
-        headlines[i] = fix_text(headlines[i])
-
-    # Create list of article lead paragraphs as strings
-    articles = df["lead_paragraph"].tolist()
-
-    # Fix encoding issues for non-unicode characters
-    print("\n\nFixing articles...")
-    for i in range(len(articles)):
-        if (not (i % 5000)):
-            print(f"Fixing article {i}")
-        if isinstance(articles[i], str):
-            articles[i] = fix_text(articles[i])
-
-    # Instantiate sentiment analyzer (VADER)
-    analyzer = SentimentIntensityAnalyzer()
-
-    # Tokenize articles into sentences and analyze
-    # Article score is the average of its sentences' scores
-    print("\n\nScoring articles...")
-    article_scores = []
-    for article in articles:
-        if isinstance(article, str):
-            sentences = sent_tokenize(article)
-            sentence_scores = []
-            for sentence in sentences:
-                sentence_scores.append(analyzer.polarity_scores(sentence)["compound"])
-            if len(sentence_scores):
-                article_scores.append(sum(sentence_scores)/len(sentence_scores))
-            else:
-                article_scores.append(0)
-        else:
-            article_scores.append(0)
+    # Get columns
+    dates = find_df["pub_date"].tolist()
+    locations = find_df["glocations"].tolist()
+    headlines = find_df["headline"].tolist()
+    articles = find_df["article"].tolist()
+    article_scores = find_df["article_score"].tolist()
     
     # Create gauge data for each article found
     gauges = []
@@ -227,6 +198,7 @@ def find_articles(keyword_type, find_string):
 
     find_articles_dict = {
         "dates": dates,
+        "locations": locations,
         "headlines": headlines,
         "articles": articles,
         "gauges": gauges,
@@ -235,8 +207,6 @@ def find_articles(keyword_type, find_string):
     
     return find_articles_dict
 
-
-find_articles(FILENAME_SCORES, "glocations", "Virginia")
 
 
 
@@ -373,6 +343,17 @@ def emotion_plotter(text):
 # find_articles(FILENAME_SCORES, "glocations", "Virginia")
 
 
+# def find_articles_new(keyword_type, find_string):
+#     print("running find_articles in sentiment.py")
+#     print(f"Keyword type: {keyword_type} | Find string: {find_string}")
 
+#     FILE_NAME = os.path.join("static", "data", "headlines_scores_keywords.csv")
+#     df = pd.read_csv(FILE_NAME)
+#     print(tabulate(df.head(), headers="keys"))
 
+#     find_df = df.loc[df["glocations"].apply(lambda x: search_column(x, "Boston"))]
+#     print(tabulate(find_df.head(), headers="keys"))
 
+#     return
+
+# find_articles_new("glocations", "Boston")

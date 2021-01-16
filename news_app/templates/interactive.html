@@ -36,34 +36,41 @@
       <!-- News Search -->
       <!-- <form action="/analyzer" method="POST" style="width: 500px; margin: auto"> -->
       
-       <div class="form-group row was-validated">
-         <label class="col-lg-3 col-form-label form-control-label text-muted"
-          >News Search:</label
-         >
-       <div class="col-lg-9">
-         <input
-             class="form-control"
-             type="text"
-             id="un"
-             name="news_analyzer"
-             placeholder="Enter text to search for in the news."
-           />
-         </div>
-       </div>
-       
-       <!-- Cancel and Submit Buttons -->
-       <div class="form-group row">
-        <label class="col-lg-3 col-form-label form-control-label"></label>
-         <div class="col-lg-9">
-           <input
-             type="reset"
-             class="btn btn-outline-secondary mr-2"
-             value="Cancel"
-           />
-           <input type="submit" value="Search" />
-         </div>
-       </div>
-    
+       <div class="row">
+         <label for="article-search-input" class="text-muted">Article Search:</label>
+       <div class="col-lg-4">
+       <div class="input-box">
+                 <label for="keyword-type" class="text-muted">Select a Keyword Type:</label>
+                        <select name="keyword" id="keyword-type" >
+                                <option value="persons">Person</option>
+                                <option value="glocations">Location</option>
+                                <option value="subject">Subject</option>
+                                <option value="organizations">Organization</option>
+                                <option value="creative_works">Creative Works (movies, books)</option>
+                        </select>
+          <input             
+              type="text"
+              id="article-search-input"
+              name="article-search"
+              maxLength="150"
+              placeholder="Input a simple search term to find articles and their sentiments!"
+            />
+           <br/>
+           <br/>
+           <input type="submit" value="Analyze" id="search-submit-button" onclick="articleSearch()"/>
+         </div> 
+      </div>
+      <br/>
+      <br/>
+      <!-- Article Search Output Display -->
+      <div class="row" id="article-search-output">
+      <br/>
+      <br/>
+        <!--div class="col-md-6" id="user-analysis-gauge"></div>
+        <div class="col-md-6" id="user-analysis-emotions"></div-->
+      </div>
+     <br/>
+     <br/>
     
 </div>
 

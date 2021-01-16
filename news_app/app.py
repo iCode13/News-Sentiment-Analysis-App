@@ -6,7 +6,7 @@ from datetime import datetime
 import json
 
 from news_app.plots import article_vs_headline_plot, calendar_heatmap
-from news_app.sentiment import user_analysis, emotion_plotter
+from news_app.sentiment import user_analysis, emotion_plotter, find_articles
 
 from nltk import data
 
@@ -68,11 +68,11 @@ def user_sentiment():
 @app.route("/interactive/article-search", methods=["POST", "GET"])
 def article_search():
     print("Running article_search in app.py")
-    search_json = request.get_json()
-    print(search_json)
-    print(type(search_json))
+    search_dict = request.get_json()
+    print(search_dict)
+    # print(type(search_json))
 
-    find_articles_dict = find_articles("glocations", "Boston")
+    find_articles_dict = find_articles(search_dict["keyword"], search_dict["find"])
 
     response = json.dumps(find_articles_dict)
     return response
