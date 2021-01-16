@@ -2,6 +2,15 @@ input[type=text] {
     width: 500px;
  }
 
+.output-div {
+    height: 300px;
+}
+
+ .article-scrollable {
+     overflow: auto; 
+     height: 150px;
+ }
+
 
 /* ---- nav bar for all pages ---- */
 /* format header */

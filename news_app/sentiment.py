@@ -147,11 +147,68 @@ def get_article_scores(FILE_NAME):
     return df_scores
 
 
-def find_articles(FILE_NAME, keyword_type, find):
+def find_articles(keyword_type, find_string):
+    print("running find_articles in sentiment.py")
+    print(f"Keyword type: {keyword_type} | Find string: {find_string}")
+
+    FILE_NAME = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
     df = pd.read_csv(FILE_NAME)
-    find_df = df.loc[df[keyword_type].apply(lambda x: search_column(x, find))]
+
+    find_df = df.loc[df[keyword_type].apply(lambda x: search_column(eval(x), find_string))]
+    print(f"Found {len(find_df)} articles -- sampling 5 random articles")
+
+    if len(find_df) > 5:
+        find_df = find_df.sample(5)
+
     print(tabulate(find_df, headers="keys"))
-    return find_df
+
+    # Get columns
+    dates = find_df["pub_date"].tolist()
+    locations = find_df["glocations"].tolist()
+    headlines = find_df["headline"].tolist()
+    articles = find_df["article"].tolist()
+    article_scores = find_df["article_score"].tolist()
+    
+    # Create gauge data for each article found
+    gauges = []
+    for article_score in articles:
+        gauge_data = [{
+            "domain": {"x": [0, 1], "y": [0, 1]},
+            "value": article_score,
+            "title": {"text": "Article Senti-meter"},
+            "type": "indicator",
+            "mode": "gauge+number+delta",
+            "gauge": {
+                "axis": {
+                    "range": [-1, 1],
+                    "nticks": 10,
+                },
+                "bar": {"color": "midnightblue"},
+                "steps": [
+                    {"range": [-1, -.6], "color": "firebrick"},
+                    {"range": [-.6, -.2], "color": "darkorange"},
+                    {"range": [-.2, .2], "color": "gold"},
+                    {"range": [.2, .6], "color": "yellowgreen"},
+                    {"range": [.6, 1.1], "color": "forestgreen"},
+                ],
+                "shape": "angular",
+            },
+        }]
+        gauges.append(gauge_data)
+
+    find_articles_dict = {
+        "dates": dates,
+        "locations": locations,
+        "headlines": headlines,
+        "articles": articles,
+        "gauges": gauges,
+    }
+    print(find_articles_dict)
+    
+    return find_articles_dict
+
+
+
 
 def search_column(items, search_string):
     found = False
@@ -280,14 +337,23 @@ def emotion_plotter(text):
 
     return emotion_plot_data, emotion_plot_layout
 
-# FILE_NAME_RAW = os.path.join("static", "data", "headlines.csv")
-# FILE_NAME_SCORES = os.path.join("static", "data", "headlines_scores_keywords.csv")
 
 # get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
 
 # find_articles(FILENAME_SCORES, "glocations", "Virginia")
 
 
+# def find_articles_new(keyword_type, find_string):
+#     print("running find_articles in sentiment.py")
+#     print(f"Keyword type: {keyword_type} | Find string: {find_string}")
 
+#     FILE_NAME = os.path.join("static", "data", "headlines_scores_keywords.csv")
+#     df = pd.read_csv(FILE_NAME)
+#     print(tabulate(df.head(), headers="keys"))
 
+#     find_df = df.loc[df["glocations"].apply(lambda x: search_column(x, "Boston"))]
+#     print(tabulate(find_df.head(), headers="keys"))
 
+#     return
+
+# find_articles_new("glocations", "Boston")
