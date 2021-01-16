@@ -99,13 +99,13 @@ nav a:hover::before {
     font-size: 18px;
 }
 
-.contributers{
+.contributors {
     text-align: center;
     font-family: "Times New Roman", Times Extrabold, serif;
     color: black;
 }
 
-.contributers p {
+.contributors p {
     font-size: 20px;
 }
 
