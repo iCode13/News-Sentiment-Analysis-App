@@ -7,20 +7,26 @@ from sklearn.pipeline import make_pipeline
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from matplotlib import pyplot as plt
+import plotly
 import plotly.express as px
 import plotly.graph_objects as go
+import json
+from flask import Flask, jsonify, render_template
 
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
+app = Flask(__name__)
+
+PATH = os.path.join("..", "data", "files", "headlines_with_nid.csv")
+
 def load_data():
-    PATH = os.path.join("..", "data", "files", "headlines_with_nid.csv")
     df = pd.read_csv(PATH)
     df = df[df["lead_paragraph"].notna()]
     return df
 
-def plot_ngrams():
+def plot_data():
 
     data = load_data()
 
@@ -28,6 +34,7 @@ def plot_ngrams():
     df = pd.read_csv(PATH)
     df = df[df["lead_paragraph"].notna()]
 
+    # Choose which category to analyze for nGrams
     abstract = df["abstract"]
     headline = df["headline"]
     lead = df["lead_paragraph"]
@@ -35,9 +42,9 @@ def plot_ngrams():
     nltk.download("stopwords")
     stoplist = stopwords.words("english")
 
-    # Get trigrams
+    # Get nGrams: (2, 2) for bigrams, (3, 3) for trigrams...
     vectorizer = CountVectorizer(stop_words=stoplist, ngram_range=(3, 3))
-    X = vectorizer.fit_transform(lead)
+    X = vectorizer.fit_transform(headline)
     features = vectorizer.get_feature_names()
     print("X : \n", X.toarray())
 
@@ -53,12 +60,14 @@ def plot_ngrams():
     # Select top 50 nGrams and add to new dataframe
     rank_df = words.head(n=50)
 
+    return rank_df
+
+##################################################################
+    # Original plot before refactoring for JS Plotly: nGram bubble chart
 def create_plot():
 
-    ##################################################################
-    # Original plot before refactoring for JS Plotly: nGram bubble chart
     fig = px.scatter(
-        rank_df,
+        plot_data(),
         x="term",
         y="rank",
         hover_name="term",
@@ -68,7 +77,7 @@ def create_plot():
         color="term",
         size_max=45,
         template="plotly_white",
-        title="Bigram similarity and frequency",
+        title="Trigram similarity and frequency",
         labels={"words": "Avg. Length<BR>(words)"},
         color_continuous_scale=px.colors.sequential.Sunsetdark,
     )
@@ -78,48 +87,56 @@ def create_plot():
 
     fig.show()
 
-    ##################################################################
-    # Refactor to work with required JS Plotly format
+##################################################################
+# Refactor to work with required JS Plotly format
+def new_plot():
+
     data = load_data()
 
-    trace1 = {
-        "x": [d["term"] for d in data],
-        "y": [d["rank"] for d in data],
-        "name": "nGram"
-    }
+    # trace1 = {
+    #     "x": [d["term"] for d in data],
+    #     "y": [d["rank"] for d in data],
+    #     "name": "Total Tests"
+    # }
 
     trace1 = {
-        "x": [d["term"] for d in data],
-        "y": [d["rank"] for d in data],
+        "x": "term",
+        "y": "rank",
         "mode": "markers",
         "marker": {
-            color_continuous_scale=px.colors.sequential.Sunsetdark,
-        }
+            "color_continuous_scale": px.colors.sequential.Sunsetdark,
+            "size": "rank",
+            "size_max": 45,
+        },
+
     }
 
-    plot_data = [trace1, trace2, trace3]
+    plot_data = [trace1,]
 
     plot_layout = {
-        "title": "Bigram similarity and frequency"
+        "title": "Trigram similarity and frequency"
     }
 
     data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
     layout = json.dumps(plot_layout, cls=plotly.utils.PlotlyJSONEncoder)
 
     return data, layout
-    ##################################################################
+##################################################################
 
-# For reference, this is Ed's example for flask app:
+new_plot()
+# create_plot()
 
-# @app.route("/")
-# def home():
-#     data, layout = create_plot()
-#     return render_template("index.html", data=data, layout=layout)
+# For reference, this is Ed's example for flask app, from p6w-6-python-only (app.py):
 
-# @app.route("/express")
-# def express():
-#     fig = create_plot_express()
-#     return render_template("express.html", fig=fig)
+@app.route("/")
+def home():
+    data, layout = new_plot()
+    return render_template("index.html", data=data, layout=layout)
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+@app.route("/express")
+def express():
+    fig = create_plot()
+    return render_template("express.html", fig=fig)
+
+if __name__ == "__main__":
+    app.run(debug=True)
