@@ -25,6 +25,7 @@ us = "*"
 datetime = "*"
 seed = "*"
 sklearn = "*"
+cython = "*"
 
 [requires]
 python_version = "3.7"
