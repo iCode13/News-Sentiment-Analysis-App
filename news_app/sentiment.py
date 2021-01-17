@@ -70,7 +70,8 @@ def get_article_scores(FILE_NAME):
             sentences = sent_tokenize(article)
             sentence_scores = []
             for sentence in sentences:
-                sentence_scores.append(analyzer.polarity_scores(sentence)["compound"])
+                if analyzer.polarity_scores(sentence)["compound"]:
+                    sentence_scores.append(analyzer.polarity_scores(sentence)["compound"])
             if len(sentence_scores):
                 article_scores.append(sum(sentence_scores)/len(sentence_scores))
             else:
@@ -143,8 +144,17 @@ def get_article_scores(FILE_NAME):
         ]
     )
 
+    df_scores["abs_headline_score"] = df_scores["headline_score"].abs()
+    df_scores["abs_article_score"] = df_scores["article_score"].abs()
+
     print(tabulate(df_scores.head(), headers="keys"))
     return df_scores
+
+# FILE_NAME_RAW = os.path.join("static", "data", "headlines.csv")
+# FILE_NAME_SCORES = os.path.join("static", "data", "headlines_scores_keywords.csv")
+
+# get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
+
 
 
 def find_articles(keyword_type, find_string):
@@ -285,7 +295,6 @@ def emotion_plotter(text):
     lemmatized_text = " ".join(lemmatized_tokens)
     print(lemmatized_text)
 
-    print
     # Get emotions
     text_object = NRCLex(lemmatized_text)
     # print(text_object.words)
@@ -338,7 +347,6 @@ def emotion_plotter(text):
     return emotion_plot_data, emotion_plot_layout
 
 
-# get_article_scores(FILE_NAME_RAW).to_csv(FILE_NAME_SCORES, index=False, encoding="utf-8-sig")
 
 # find_articles(FILENAME_SCORES, "glocations", "Virginia")
 

@@ -98,7 +98,6 @@ function articleSearch() {
 								bylineString += ` | ${location}`
 							})
 						}
-
 						return bylineString
 					})
 					
