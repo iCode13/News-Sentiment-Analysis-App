@@ -5,12 +5,35 @@
 
 <div class="container" id="visualizations">
     
-    <!-- Placehold viz - bar chart if we get there -->
+    <!-- Articles vs Headlines scatter plot -->
     <div class="row">
         <div class="col-md-9 plots" id="article-headline-plot">
         </div>
         <div class="col-md-3 summary" id="plot-summary">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at lacinia lorem, eget lacinia ligula. Phasellus ultrices, neque eget ullamcorper aliquam, elit tellus sodales metus, a vestibulum est erat vitae dui. Duis vitae erat iaculis eros lobortis tristique.</p>
+            <p>
+                <b>Do Positive Headlines Predict Positive Articles?</b>
+                <br>
+                Well, yes... but there are quite a few exceptions! Most articles tended to cluster in the upper right (positive headlines with positive articles) or in the lower left (negative headlines with negative articles) of this chart. Interact with this chart to see which kinds of news tend to follow this pattern most closely!
+                <br>
+                Double-click on an entry in the legend to isolate it on the chart, or single-click legend entries to add or remove them from the chart individually.
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- boxplot -->
+    <div class="row">
+        <div class="col-md-3 summary" id="boxplot-summary">
+            <p>
+                <b>What Type of News is Most Positive?</b>
+                <br>
+                This plot depicts the range and descriptive statistics of each news type. Does the range of sentiment for some news surprise you?  Would you predict that Science or Politics news is more positive on average?  The answer might surprise you!
+                <br>
+                Hover over each box to learn the maxium, minimum, median, and quartile values for each news type's article sentiment scores.
+            </p>
+        </div>
+        <div class="col-md-9 plots" id="boxplot">
         </div>
     </div>
 
@@ -18,10 +41,16 @@
 
     <!-- calendar heatmap -->
     <div class="row">
-        <div class="col-md-3 summary" id="calendar-heatmap-summary">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at lacinia lorem, eget lacinia ligula. Phasellus ultrices, neque eget ullamcorper aliquam, elit tellus sodales metus, a vestibulum est erat vitae dui. Duis vitae erat iaculis eros lobortis tristique.</p>
-        </div>
         <div class="col-md-9 plots" id="calendar-heatmap">
+        </div>
+        <div class="col-md-3 summary" id="calendar-heatmap-summary">
+        <p>
+                <b>How Does News Sentiment Trend Over Time?</b>
+                <br>
+                Follow a news desk's average daily sentiment in this chart.  Hovering over a point shows the headlines of the three "most emotional" articles from that news desk on that day.
+                <br>
+                Click and drag over a section of the calendar to zoom in on specific time periods.  Click the "home" icon in the upper right (cursor must be on chart) to reset the zoom level.
+            </p>
         </div>
     </div>
 
@@ -29,10 +58,10 @@
 
     <!-- bigramps plot -->
     <div class="row">
-        <div class="col-md-9 plots" id="bigrams-plot">
-        </div>
         <div class="col-md-3 summary" id="bigrams-summary">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at lacinia lorem, eget lacinia ligula. Phasellus ultrices, neque eget ullamcorper aliquam, elit tellus sodales metus, a vestibulum est erat vitae dui. Duis vitae erat iaculis eros lobortis tristique.</p>
+        </div>
+        <div class="col-md-9 plots" id="bigrams-plot">
         </div>
     </div>
 
@@ -40,10 +69,10 @@
 
     <!-- geographic heatmap -->
     <div class="row">
+        <div class="col-md-9 plots" id="geographic-heatmap">
+        </div>
         <div class="col-md-3 summary" id="geographic-heatmap-summary">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at lacinia lorem, eget lacinia ligula. Phasellus ultrices, neque eget ullamcorper aliquam, elit tellus sodales metus, a vestibulum est erat vitae dui. Duis vitae erat iaculis eros lobortis tristique.</p>
-        </div>
-        <div class="col-md-9 plots" id="geographic-heatmap">
         </div>
     </div>
 
@@ -59,6 +88,12 @@
     const calendar_heatmap_data = {{ calendar_heatmap_data | safe }}
     const calendar_heatmap_layout = {{ calendar_heatmap_layout | safe }}
     Plotly.newPlot("calendar-heatmap", calendar_heatmap_data, calendar_heatmap_layout)
+
+    // boxplot
+    const boxplot_data = {{ boxplot_data | safe }}
+    const boxplot_layout = {{ boxplot_layout | safe }}
+    Plotly.newPlot("boxplot", boxplot_data, boxplot_layout)
+    console.log(boxplot_data)
     
 </script>
 

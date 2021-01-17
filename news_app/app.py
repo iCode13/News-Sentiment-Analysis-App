@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import json
 
-from news_app.plots import article_vs_headline_plot, calendar_heatmap
+from news_app.plots import article_vs_headline_plot, calendar_heatmap, box_plots
 from news_app.sentiment import user_analysis, emotion_plotter, find_articles
 
 from nltk import data
@@ -31,6 +31,7 @@ def visualizations():
     
     article_headline_data, article_headline_layout = article_vs_headline_plot(df)
     calendar_heatmap_data, calendar_heatmap_layout = calendar_heatmap()
+    boxplot_data, boxplot_layout = box_plots(df)
 
     return render_template(
         "visualizations.html", 
@@ -38,6 +39,8 @@ def visualizations():
         article_headline_layout=article_headline_layout,
         calendar_heatmap_data=calendar_heatmap_data,
         calendar_heatmap_layout=calendar_heatmap_layout,
+        boxplot_data=boxplot_data,
+        boxplot_layout=boxplot_layout,
   )
 
 

@@ -6,42 +6,117 @@ import calmap
 import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt, mpld3
+from sklearn.linear_model import LinearRegression
+import pickle
 
 # FILE_PATH = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
 
-def article_vs_headline_plot(df):
+def article_vs_headline_plot(df_in):
     # Read in data
     # df = pd.read_csv(FILE_PATH)
 
-    scores_no_zeros = df[["headline_score", "article_score", "news_desk"]].loc[(df["headline_score"] != 0) & (df["article_score"] != 0) & (df["section_name"] == "U.S.")]
+    df = df_in[["headline_score", "article_score", "news_desk"]].loc[
+        (df_in["headline_score"] != 0) & 
+        (df_in["article_score"] != 0) & 
+        (df_in["section_name"] != "Business Day") &
+        (df_in["news_desk"] != "Media") &
+        (df_in["news_desk"] != "National")
+    ]
     # ['National' 'Business' 'Politics' 'Science' 'Climate']
     
+    # Line colors
+    lines_colors_dict = { 
+        "Society": "dodgerblue",
+        "Business": "gold",
+        "Politics": "firebrick",
+        "Science": "forestgreen",
+        "Climate": "darkorange",
+        "Arts&Leisure": "blueviolet",
+    }
+
     # Marker fill colors with 50% opacity
-    desk_colors_dict = { 
-        "National": "rgba(30, 144, 255, 0.1)", #"dodgerblue",
+    markers_colors_dict = { 
+        "Society": "rgba(30, 144, 255, 0.3)", #"dodgerblue",
         "Business": "rgba(255, 215, 0, 0.3)", #"gold",
         "Politics": "rgba(178, 34, 34, 0.3)", #"firebrick",
         "Science": "rgba(34, 139, 34, 0.3)", #"forestgreen",
         "Climate": "rgba(255, 140, 0, 0.3)", #"darkorange"
+        "Arts&Leisure": "rgba(138, 43, 226, 0.3)", #"blueviolet",
     }
-    desk_colors = scores_no_zeros["news_desk"].map(desk_colors_dict)
 
-    trace1 = {
-        "x": scores_no_zeros["headline_score"],
-        "y": scores_no_zeros["article_score"],
-        "mode": "markers",
-        "marker": {
-            "color": desk_colors,
+    df["markers_colors"] = df["news_desk"].map(markers_colors_dict)
+
+
+    plot_data = []
+
+    for desk in df["news_desk"].unique():
+        scatter_trace = {
+            "x": df["headline_score"].loc[df["news_desk"] == desk],
+            "y": df["article_score"].loc[df["news_desk"] == desk],
+            "mode": "markers",
+            "marker": {
+                "color": df["markers_colors"].loc[df["news_desk"] == desk],
+                "line": {
+                    "color": "rgba(105, 105, 105, .5)", #dimgrey
+                    "width": .5,
+                }
+            },
+            "text": df["news_desk"].loc[df["news_desk"] == desk],
+            "hovertemplate": '%{text} <br>Headline: %{x}<br>Article: %{y}<extra></extra>',
+            "legendgroup": desk,
+            "showlegend": False,
+        }
+        plot_data.append(scatter_trace)
+        # # Create and save models
+        # print(f"fitting {desk} model")
+        # x = df["headline_score"].loc[df["news_desk"] == desk].to_frame().values
+        # y = df["article_score"].loc[df["news_desk"] == desk].values
+        # model = LinearRegression()
+        # model.fit(x, y)
+        # MODELS_FILEPATH = os.path.join("news_app", "static", "resources", "saved_models")
+        # pickle_filename = f"pickle_model_{desk}.pkl"
+        # with open(os.path.join(MODELS_FILEPATH, pickle_filename), "wb") as file:
+        #     pickle.dump(model, file)
+
+        # Open saved models
+        MODELS_FILEPATH = os.path.join("news_app", "static", "resources", "saved_models")
+        pickle_filename = f"pickle_model_{desk}.pkl"
+        with open(os.path.join(MODELS_FILEPATH, pickle_filename), "rb") as file:
+            model = pickle.load(file)
+        
+        x_trace = [-1, 1]
+        y_trace = [model.predict([[-1]])[0], model.predict([[1]])[0]]
+
+        line_trace = {
+            "x": x_trace,
+            "y": y_trace,
+            "mode": "lines",
             "line": {
-                "color": "rgba(105, 105, 105, .5)", #dimgrey
-                "width": .5,
-            }
-        },
-    }
+                "color": lines_colors_dict[desk],
+                "width": 2,
+            },
+            "legendgroup": desk,
+            "name": desk,
+            "showlegend": True,
+            'text': df["news_desk"].loc[df["news_desk"] == desk],
+            "hovertemplate": '%{text}<extra></extra>',
+        }
+        plot_data.append(line_trace)
 
-    plot_data = [trace1,]
     plot_layout = {
-        "title": "Articles vs Headlines"}
+        "title": "Article vs Headline Score",
+        "xaxis": {
+            "title": {
+                "text": "Headline Scores",
+            },
+        },
+        "yaxis": {
+            "title": {
+                "text": "Article Scores",
+            },
+        },
+        "hovermode": "closest",
+    }
 
     data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
     layout = json.dumps(plot_layout, cls=plotly.utils.PlotlyJSONEncoder)
@@ -96,7 +171,7 @@ def calendar_heatmap():
             '<br>%{text.score[0]} | %{text.headline[0]}' +
             '<br>%{text.score[1]} | %{text.headline[1]}' +
             '<br>%{text.score[2]} | %{text.headline[2]}' +
-            "<br><b>Today's Average: %{z}</b>", 
+            "<br><b>Today's Average: %{z}</b><extra></extra>", 
         "showlegend": False,
         "name": "",
     }
@@ -115,7 +190,7 @@ def calendar_heatmap():
             '<br>%{text.score[0]} | %{text.headline[0]}' +
             '<br>%{text.score[1]} | %{text.headline[1]}' +
             '<br>%{text.score[2]} | %{text.headline[2]}' +
-            "<br><b>Today's Average: %{z}</b>", 
+            "<br><b>Today's Average: %{z}</b><extra></extra>", 
         "showlegend": False,
         "name": "",
     }
@@ -134,7 +209,7 @@ def calendar_heatmap():
             '<br>%{text.score[0]} | %{text.headline[0]}' +
             '<br>%{text.score[1]} | %{text.headline[1]}' +
             '<br>%{text.score[2]} | %{text.headline[2]}' +
-            "<br><b>Today's Average: %{z}</b>", 
+            "<br><b>Today's Average: %{z}</b><extra></extra>", 
         "showlegend": False,
         "name": "",
     }
@@ -154,11 +229,11 @@ def calendar_heatmap():
 
     heatmap_data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
     heatmap_layout = json.dumps(plot_layout, cls=plotly.utils.PlotlyJSONEncoder)
-
+    
     return heatmap_data, heatmap_layout
 
     # # Create heatmap csv
-    # df = pd.read_csv(os.path.join("static", "data", "headlines_scores_keywords.csv"))
+    # df = pd.read_csv(os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv"))
 
     # df["dates"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%Y-%m-%d"))
     # news_desks = []
@@ -203,5 +278,54 @@ def calendar_heatmap():
     #         "top_headlines"
     #     ])
 
-    # cal_heatmap_df_new.to_csv(os.path.join("static", "data", "calendar_heatmap_new.csv"), index=False, encoding="utf-8-sig")
+    # cal_heatmap_df_new.to_csv(os.path.join("news_app", "static", "data", "calendar_heatmap_new2.csv"), index=False, encoding="utf-8-sig")
     # print(cal_heatmap_df_new.head(100))
+
+def box_plots(df_in):
+    # Read in data
+    # df = pd.read_csv(FILE_PATH)
+
+    df = df_in[["article_score", "news_desk"]].loc[
+        (df_in["article_score"] != 0) & 
+        (df_in["section_name"] != "Business Day") &
+        (df_in["news_desk"] != "Media") &
+        (df_in["news_desk"] != "National")
+    ]
+    # ['National' 'Business' 'Politics' 'Science' 'Climate']
+    
+    # Box colors
+    box_colors_dict = { 
+        "Society": "dodgerblue",
+        "Business": "gold",
+        "Politics": "firebrick",
+        "Science": "forestgreen",
+        "Climate": "darkorange",
+        "Arts&Leisure": "blueviolet",
+    }
+
+    df["markers_colors"] = df["news_desk"].map(box_colors_dict)
+
+    plot_data = []
+
+    for desk in df["news_desk"].unique():
+        scatter_trace = {
+            "y": df["article_score"].loc[df["news_desk"] == desk],
+            "type": "box",
+            "name": desk,
+            "marker": {
+                "color": box_colors_dict[desk],
+            },
+            "boxpoints": "outliers",
+            "showlegend": True,
+        }
+        plot_data.append(scatter_trace)
+
+        plot_layout = {
+            "title": "Article Score Statistics",
+            "hovermode": "closest",
+        }
+
+    boxplot_data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
+    boxplot_layout = json.dumps(plot_layout, cls=plotly.utils.PlotlyJSONEncoder)
+    
+    return boxplot_data, boxplot_layout
