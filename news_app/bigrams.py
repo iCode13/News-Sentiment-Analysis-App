@@ -91,7 +91,12 @@ def create_plot():
 # Refactor to work with required JS Plotly format
 def new_plot():
 
-    data = load_data()
+    data = plot_data()
+    # term = data["term"]
+    # rank = data["rank"]
+
+    print("This is a test")
+    # print(data["term"])
 
     # trace1 = {
     #     "x": [d["term"] for d in data],
@@ -100,33 +105,37 @@ def new_plot():
     # }
 
     trace1 = {
-        "x": "term",
-        "y": "rank",
+        "x": data["term"],
+        "y": data["rank"],
         "mode": "markers",
         "marker": {
-            "color_continuous_scale": px.colors.sequential.Sunsetdark,
+            "colorscale": "Jet", # or "Greens", "Greys", "Electric", "Earth"
             "size": "rank",
-            "size_max": 45,
+            # "size_max": 45,
         },
 
     }
 
-    plot_data = [trace1,]
+    data_to_plot = [trace1,]
 
     plot_layout = {
-        "title": "Trigram similarity and frequency"
+        "title": "Trigram similarity and frequency",
+        "height": 700,
+        "width": 900,
     }
 
-    data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
+    data = json.dumps(data_to_plot, cls=plotly.utils.PlotlyJSONEncoder)
     layout = json.dumps(plot_layout, cls=plotly.utils.PlotlyJSONEncoder)
 
     return data, layout
 ##################################################################
 
+# plot_data()
 new_plot()
 # create_plot()
 
-# For reference, this is Ed's example for flask app, from p6w-6-python-only (app.py):
+# For reference, this is Ed's example for flask app, from p6w-6-python-only (app.py).
+# Using this to test deployment and see plot results.
 
 @app.route("/")
 def home():
