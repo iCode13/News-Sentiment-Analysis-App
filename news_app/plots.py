@@ -332,7 +332,7 @@ def box_plots(df_in):
     return boxplot_data, boxplot_layout
 
 def lat_lon_heatmap():
-    df = pd.read_csv("geocoded_headlines_scores_keywords.csv").dropna(how="any")
+    df = df = pd.read_csv(os.path.join("news_app", "static", "data", "geocoded_headlines_scores_keywords.csv")).dropna(how="any")
 
     df["latitude"] = df["lat_lon"].apply(lambda x: eval(x)[0])
     df["longitude"] = df["lat_lon"].apply(lambda x: eval(x)[1])
