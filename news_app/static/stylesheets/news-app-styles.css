@@ -130,3 +130,20 @@ nav a:hover::before {
     padding: 0;
     margin: 0;
 }
+
+/* ---- maps page ---- */
+
+#all-maps {
+    max-width: 90%;
+}
+
+.maps {
+    height: 100%;
+    width: 100%;
+}
+
+.map-summary {
+    margin-top: 10px;
+    font-family: 'Times New Roman', Times Bold, serif;
+    font-size: 18px;
+}
