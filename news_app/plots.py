@@ -332,7 +332,16 @@ def box_plots(df_in):
     return boxplot_data, boxplot_layout
 
 def lat_lon_heatmap():
-        fig = px.density_mapbox(
+    df = pd.read_csv("geocoded_headlines_scores_keywords.csv").dropna(how="any")
+
+    df["latitude"] = df["lat_lon"].apply(lambda x: eval(x)[0])
+    df["longitude"] = df["lat_lon"].apply(lambda x: eval(x)[1])
+    df["date"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%m/%d/%Y"))
+    df["month"] = df["date"].apply(lambda x: x.to_period("M"))
+    df["month_str"] = df["month"].apply(lambda x: str(x))
+    print(df.head())
+
+    fig = px.density_mapbox(
         df,
         lon="longitude",
         lat="latitude",
