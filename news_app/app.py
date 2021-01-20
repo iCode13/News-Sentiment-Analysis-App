@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import json
 
-from news_app.plots import article_vs_headline_plot, calendar_heatmap, box_plots
+from news_app.plots import article_vs_headline_plot, calendar_heatmap, box_plots, lat_lon_heatmap
 from news_app.sentiment import user_analysis, emotion_plotter, find_articles
 
 from nltk import data
@@ -79,3 +79,13 @@ def article_search():
 
     response = json.dumps(find_articles_dict)
     return response
+
+@app.route("/maps")
+def maps():
+    
+    lat_lon_heatmap_dict = lat_lon_heatmap()
+
+    return render_template(
+        "maps.html", 
+        lat_lon_heatmap_dict=lat_lon_heatmap_dict
+  )

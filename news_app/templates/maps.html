@@ -1,0 +1,94 @@
+{% extends "parent.html" %}
+{% block content %}
+
+<br>
+
+<div class="container" id="maps">
+    
+    <!-- Heatmap div -->
+    <div class="row">
+        <div class="col-md-12 maps" id="heatmap-global-year">
+        </div>
+        <div class="col-md-12 summary" id="heatmap-global-year-summary">
+            <p>
+                Lorem ipsum dolor sit amet...
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Heatmap div -->
+    <div class="row">
+        <div class="col-md-12 maps" id="heatmap-global-week">
+        </div>
+        <div class="col-md-12 summary" id="heatmap-global-week-summary">
+            <p>
+                Lorem ipsum dolor sit amet...
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Heatmap div -->
+    <div class="row">
+        <div class="col-md-12 maps" id="heatmap-us-year">
+        </div>
+        <div class="col-md-12 summary" id="heatmap-us-year-summary">
+            <p>
+                Lorem ipsum dolor sit amet...
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Heatmap div -->
+    <div class="row">
+        <div class="col-md-12 maps" id="heatmap-us-week">
+        </div>
+        <div class="col-md-12 summary" id="heatmap-us-week-summary">
+            <p>
+                Lorem ipsum dolor sit amet...
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Heatmap div -->
+    <div class="row">
+        <div class="col-md-12 maps" id="lat-lon-heatmap">
+        </div>
+        <div class="col-md-12 summary" id="lat-lon-heatmap-summary">
+            <p>
+                Lorem ipsum dolor sit amet...
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+</div>
+
+<script>
+    // Article headline dummy figure
+    const article_headline_data = {{ article_headline_data | safe }}
+    const article_headline_layout = {{ article_headline_layout | safe }}
+    Plotly.newPlot("article-headline-plot", article_headline_data, article_headline_layout)
+
+    // heatmap
+    const calendar_heatmap_data = {{ calendar_heatmap_data | safe }}
+    const calendar_heatmap_layout = {{ calendar_heatmap_layout | safe }}
+    Plotly.newPlot("calendar-heatmap", calendar_heatmap_data, calendar_heatmap_layout)
+
+    // boxplot
+    const boxplot_data = {{ boxplot_data | safe }}
+    const boxplot_layout = {{ boxplot_layout | safe }}
+    Plotly.newPlot("boxplot", boxplot_data, boxplot_layout)
+    console.log(boxplot_data)
+    
+</script>
+
+{% endblock %}
