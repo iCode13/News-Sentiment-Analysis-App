@@ -10,6 +10,8 @@ import plotly.express as px
 from sklearn.linear_model import LinearRegression
 import pickle
 
+mapbox_token = os.getenv('mapbox_token')
+
 # FILE_PATH = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
 
 def article_vs_headline_plot(df_in):
@@ -334,40 +336,103 @@ def box_plots(df_in):
 def lat_lon_heatmap():
     df = df = pd.read_csv(os.path.join("news_app", "static", "data", "geocoded_headlines_scores_keywords.csv")).dropna(how="any")
 
+    def location(x):
+        location_details = (
+            x.replace("'", "$")
+            .replace('"', "'")
+            .replace("$", '"')
+            .replace("""'Provence-Alpes-Côte d"Azur'""", '"Provence-Alpes-Côte dAzur"')
+            .replace(
+                """'Commune Petite Rivière de l"Artibonite'""",
+                '"Commune Petite Rivière de lArtibonite"',
+            )
+        )
+        location_dict = json.loads(location_details)
+        location_string = ""
+        if location_dict["city"]:
+            location_string += location_dict["city"] + ", "
+        if location_dict["state"]:
+            location_string += location_dict["state"] + ", "
+        if location_dict["country"]:
+            location_string += location_dict["country"]
+        return location_string
+
+
     df["latitude"] = df["lat_lon"].apply(lambda x: eval(x)[0])
     df["longitude"] = df["lat_lon"].apply(lambda x: eval(x)[1])
     df["date"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%m/%d/%Y"))
     df["month"] = df["date"].apply(lambda x: x.to_period("M"))
     df["month_str"] = df["month"].apply(lambda x: str(x))
-    print(df.head())
+    df["location_details_dict"] = df["location_details"].apply(lambda x: location(x))
 
-    fig = px.density_mapbox(
+    fig2 = px.scatter_mapbox(
         df,
         lon="longitude",
         lat="latitude",
-        radius=8,
-        z="article_score",
+        custom_data=["headline", "location_details_dict", "article_score"],
+        color="article_score",
         color_continuous_scale="rdylgn",
-        mapbox_style="stamen-terrain",
+        opacity=0.6,
+        mapbox_style="light",
         zoom=1,
         hover_name="headline",
-        hover_data={"article_score": True, "longitude": False, "latitude": False, "month_str": False},
+        hover_data={
+            "article_score": True,
+            "longitude": False,
+            "latitude": False,
+            "month_str": False,
+        },
         animation_frame="month_str",
-        height=800,
-        width=1200,
+        height=500,
+        width=800,
+        center={"lat": 35, "lon": -60},
     )
 
-    fig.update_layout(
+    fig2.update_traces(
+        mode="markers",
+        marker={"size": 18,},
+        hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Article Score: %{customdata[2]:.4f}",
+    )
+
+    fig2.update_layout(
         margin={"t": 5, "b": 5, "l": 5, "r": 5},
-        sliders=[
-            {"name": "Month"},
-            {"steps": [{"label": "Month"}]},
-            {"pad": {"t": 5}}
-        ],
+        mapbox_accesstoken=mapbox_token,
+        sliders=[{"currentvalue": {"prefix": "Month: "}}],
     )
 
-    fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
+    fig2.update_coloraxes(colorbar_title={"text": "Article Sentiment"},)
 
-    fig_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    fig2.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
 
-    return fig_json
+    fig_json2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return fig_json2
+    # fig = px.density_mapbox(
+    #     df,
+    #     lon="longitude",
+    #     lat="latitude",
+    #     radius=8,
+    #     z="article_score",
+    #     color_continuous_scale="rdylgn",
+    #     mapbox_style="stamen-terrain",
+    #     zoom=1,
+    #     hover_name="headline",
+    #     hover_data={"article_score": True, "longitude": False, "latitude": False, "month_str": False},
+    #     animation_frame="month_str",
+    #     height=800,
+    #     width=1200,
+    # )
+
+    # fig.update_layout(
+    #     margin={"t": 5, "b": 5, "l": 5, "r": 5},
+    #     sliders=[
+    #         {"name": "Month"},
+    #         {"steps": [{"label": "Month"}]},
+    #         {"pad": {"t": 5}}
+    #     ],
+    # )
+
+    # fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
+
+    # fig_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
