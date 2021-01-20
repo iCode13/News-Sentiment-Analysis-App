@@ -10,8 +10,6 @@ import plotly.express as px
 from sklearn.linear_model import LinearRegression
 import pickle
 
-mapbox_token = os.getenv('mapbox_token')
-
 # FILE_PATH = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
 
 def article_vs_headline_plot(df_in):
@@ -357,13 +355,21 @@ def lat_lon_heatmap():
         if location_dict["country"]:
             location_string += location_dict["country"]
         return location_string
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> d250a44afb47b15f3cc9b81bbfbc4381f51252b9
     df["latitude"] = df["lat_lon"].apply(lambda x: eval(x)[0])
     df["longitude"] = df["lat_lon"].apply(lambda x: eval(x)[1])
     df["date"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%m/%d/%Y"))
     df["month"] = df["date"].apply(lambda x: x.to_period("M"))
     df["month_str"] = df["month"].apply(lambda x: str(x))
     df["location_details_dict"] = df["location_details"].apply(lambda x: location(x))
+<<<<<<< HEAD
+    print(df.head())
+=======
+>>>>>>> d250a44afb47b15f3cc9b81bbfbc4381f51252b9
 
     fig2 = px.scatter_mapbox(
         df,
@@ -392,6 +398,27 @@ def lat_lon_heatmap():
         mode="markers",
         marker={"size": 18,},
         hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Article Score: %{customdata[2]:.4f}",
+<<<<<<< HEAD
+    )
+
+    fig2.update_layout(
+        margin={"t": 5, "b": 5, "l": 5, "r": 5},
+        mapbox_accesstoken=mapbox_token,
+        sliders=[{"currentvalue": {"prefix": "Month: "}}],
+    )
+
+    fig2.update_coloraxes(colorbar_title={"text": "Article Sentiment"},)
+
+    fig2.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
+
+    fig_json2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
+
+<<<<<<< HEAD
+    return fig_json2
+=======
+    return fig_json2
+>>>>>>> af47888d2ba49eb082c2d90bc5dadf4af12d8fae
+=======
 
     )
 
@@ -408,3 +435,4 @@ def lat_lon_heatmap():
     fig_json2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
     return fig_json2
+>>>>>>> d250a44afb47b15f3cc9b81bbfbc4381f51252b9
