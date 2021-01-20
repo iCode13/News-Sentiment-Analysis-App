@@ -1,5 +1,11 @@
 console.log("app.js is running!")
 
+function animatedHeatmap() {
+	d3.json("static/js/animation.json").then(function (jsonData) {
+		console.log(jsonData)
+	})
+}
+
 function userAnalysis() {
     console.log("Running user analysis in app.py")
     var userText = d3.select("#user-text-input").property("value")
