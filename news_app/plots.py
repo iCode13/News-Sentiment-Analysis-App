@@ -10,6 +10,8 @@ import plotly.express as px
 from sklearn.linear_model import LinearRegression
 import pickle
 
+mapbox_token = os.getenv('mapbox_token')
+
 # FILE_PATH = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
 
 def article_vs_headline_plot(df_in):
@@ -355,14 +357,13 @@ def lat_lon_heatmap():
         if location_dict["country"]:
             location_string += location_dict["country"]
         return location_string
-    
+
     df["latitude"] = df["lat_lon"].apply(lambda x: eval(x)[0])
     df["longitude"] = df["lat_lon"].apply(lambda x: eval(x)[1])
     df["date"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%m/%d/%Y"))
     df["month"] = df["date"].apply(lambda x: x.to_period("M"))
     df["month_str"] = df["month"].apply(lambda x: str(x))
     df["location_details_dict"] = df["location_details"].apply(lambda x: location(x))
-    print(df.head())
 
     fig2 = px.scatter_mapbox(
         df,
@@ -391,6 +392,7 @@ def lat_lon_heatmap():
         mode="markers",
         marker={"size": 18,},
         hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Article Score: %{customdata[2]:.4f}",
+
     )
 
     fig2.update_layout(
