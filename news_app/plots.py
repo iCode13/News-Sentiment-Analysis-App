@@ -405,4 +405,8 @@ def lat_lon_heatmap():
 
     fig_json2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
+<<<<<<< HEAD
     return fig_json2
+=======
+    return fig_json2
+>>>>>>> af47888d2ba49eb082c2d90bc5dadf4af12d8fae
