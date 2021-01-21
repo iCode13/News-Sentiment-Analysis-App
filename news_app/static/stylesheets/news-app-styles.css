@@ -40,12 +40,12 @@ input[type=text] {
     height: 300px;
 }
 
- .article-scrollable {
+.article-scrollable {
      overflow: auto; 
      height: 150px;
  }
 
- .input-box {
+.input-box {
      margin-bottom: 30px;
  }
 
