@@ -10,6 +10,7 @@ import plotly.express as px
 from sklearn.linear_model import LinearRegression
 import pickle
 
+mapbox_token = os.getenv("mapbox_token")
 # FILE_PATH = os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv")
 
 def article_vs_headline_plot(df_in):
@@ -335,7 +336,7 @@ def lat_lon_heatmap():
     GEOCODE_DATA = os.path.join("news_app", "static", "data", "geocoded_headlines_scores_keywords.csv")
     df = pd.read_csv(GEOCODE_DATA).dropna(how="any")
 
-        def location(x):
+    def location(x):
         location_details = (
             x.replace("'", "$")
             .replace('"', "'")

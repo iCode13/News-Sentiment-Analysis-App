@@ -30,6 +30,8 @@ function userAnalysis() {
             
 			Plotly.newPlot("user-analysis-gauge", responseJson.gauge_data)
 			Plotly.newPlot("user-analysis-emotions", responseJson.emotion_plot_data, responseJson.emotion_plot_layout)
+
+			$.scrollTo($('#user-analysis-intro'), 700);
 		})
 	})
 	.catch(function (error) {
@@ -121,7 +123,7 @@ function articleSearch() {
 
 				Plotly.newPlot(`gauge-${i}`, responseJson.gauges[i])
 
-				
+				$.scrollTo($('#article-search-intro'), 700);
 			}
 			
 					// var table = d3.select('#dice-table')

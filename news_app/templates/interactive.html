@@ -2,9 +2,25 @@
 {% block content %}
 <div class="container">
 
-     <!-- Begin Form -->
-     <br/>
-     <br/>
+    <div class="row">
+        <div class="col-md-12 interaction-intro">
+            <p style="font-size:24px">
+              <b>Interact with the news!</b>
+              </br>
+              On this page, you can try your hand at creating a positive (or negative!) headline, and you can search for headlines whose sentiments interest you.
+            </p>
+        </div>
+        <div class="col-md-12 interaction-intro" id="user-analysis-intro">
+            <p>
+              <b>Sentiment Analysis</b>
+              </br>
+              Your headline undergoes two types of analyses--first, a "VADER sentiment analysis" that constructs a score based on the positivity or negativity of each word in your headline, including "boosting" your score based on words like "very" or "really."  VADER also recognizes exclamation points and words in ALL CAPS, so try out your favorite Tweets to see how you can affect the sentiment score!  Additionally, the analyzer uses the NRCLex lexicon of emotional words to identify certain emotions associated with words in your headline.  Will the words you choose convey surprise? Joy? Fear? Antici...pation?  Try it out and see what you find!
+            </p>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
 
      <!-- News Analyzer -->
      <!-- <form action="/analyzer" method="POST" style="width: 500px; margin: auto"> -->
@@ -36,6 +52,16 @@
       <!-- News Search -->
       <!-- <form action="/analyzer" method="POST" style="width: 500px; margin: auto"> -->
       
+      <div class ="row">
+        <div class="col-md-12 interaction-intro" id="article-search-intro">
+          <p>
+              <b>Article Search</b>
+              </br>
+              To search the 50,000+ headlines in our dataset, choose a search category such as "Person" or "Organization," and then enter your search term (simpler searches work best).  Your results will be up to 5 randomly sampled articles that match your search term.  Results display the article headline, the lead paragraph, and a sentiment analysis (the "Senti-Meter!") based on the headline's VADER sentiment score.
+            </p>
+        </div>
+      </div>
+
        <div class="row">
          <label for="article-search-input" class="text-muted">Article Search:</label>
        <div class="col-lg-4">

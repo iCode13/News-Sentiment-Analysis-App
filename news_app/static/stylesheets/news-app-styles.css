@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "Cheltenham";
-    src: url('../../assets/fonts/CheltenhamStdBook.woff') format('woff');
+    src: url('../fonts/CheltenhamStdBook.woff') format('woff');
     font-style: normal;
     font-weight: normal;
 }
@@ -22,6 +22,15 @@
     }
 
 /* ---- interactive page ---- */
+
+.interaction-intro {
+    margin-top: 10px;
+    font-family: "Cheltenham";
+    font-weight: normal;
+    font-size: 18px;
+    text-align: justify;
+    text-justify: inter-word;
+}
 
 input[type=text] {
     width: 500px;
@@ -189,6 +198,9 @@ nav a:hover::before {
 .maps {
     height: 100%;
     width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .map-summary {
