@@ -80,9 +80,8 @@
 
 <script>
     // Article headline dummy figure
-    const article_headline_data = {{ article_headline_data | safe }}
-    const article_headline_layout = {{ article_headline_layout | safe }}
-    Plotly.newPlot("article-headline-plot", article_headline_data, article_headline_layout)
+    const article_headline_figure = {{ article_headline_figure | safe }}
+    Plotly.newPlot("article-headline-plot", article_headline_figure)
 
     // heatmap
     const calendar_heatmap_data = {{ calendar_heatmap_data | safe }}

@@ -29,14 +29,13 @@ def visualizations():
     df = pd.read_csv(FILE_PATH)
     # df["datetime"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%Y-%m-%d"))
     
-    article_headline_data, article_headline_layout = article_vs_headline_plot(df)
+    article_headline_figure = article_vs_headline_plot(df)
     calendar_heatmap_data, calendar_heatmap_layout = calendar_heatmap()
     boxplot_data, boxplot_layout = box_plots(df)
 
     return render_template(
         "visualizations.html", 
-        article_headline_data=article_headline_data, 
-        article_headline_layout=article_headline_layout,
+        article_headline_figure=article_headline_figure, 
         calendar_heatmap_data=calendar_heatmap_data,
         calendar_heatmap_layout=calendar_heatmap_layout,
         boxplot_data=boxplot_data,
