@@ -18,7 +18,7 @@ from nltk.corpus import stopwords
 
 # app = Flask(__name__)
 
-PATH = os.path.join("..", "data", "files", "headlines_with_nid.csv")
+PATH = os.path.join("data", "files", "headlines_with_nid.csv")
 
 ##################################################################
 def load_data():
@@ -47,14 +47,14 @@ def trigram_data():
     vectorizer = CountVectorizer(stop_words=stoplist, ngram_range=(3, 3))
     X = vectorizer.fit_transform(headlines)
     features = vectorizer.get_feature_names()
-    print("\n\nX : \n", X.toarray())
+    # print("\n\nX : \n", X.toarray())
 
     # Applying TFIDF 
     vectorizer2 = TfidfVectorizer(stop_words=stoplist, ngram_range = (3,3)) 
     X2 = vectorizer2.fit_transform(headlines)
     features2 = vectorizer2.get_feature_names()
     scores = (X2.toarray()) 
-    print("\n\nX2 : \n", scores)
+    # print("\n\nX2 : \n", scores)
 
     # Getting top ranking features
     sums = X2.sum(axis=0)
@@ -63,7 +63,7 @@ def trigram_data():
         data1.append((term, sums[0, col]))
     ranking = pd.DataFrame(data1, columns=["term", "rank"])
     words = ranking.sort_values("rank", ascending=False)
-    print("\n\nWords : \n", words.head(20))
+    # print("\n\nWords : \n", words.head(20))
 
     # Select top 50 nGrams and add to new dataframe
     trigram_df = words.head(n=50)
@@ -156,14 +156,14 @@ def quadgram_data():
     vectorizer = CountVectorizer(stop_words=stoplist, ngram_range=(2, 3))
     X = vectorizer.fit_transform(headlines)
     features1 = vectorizer.get_feature_names()
-    print("\n\nX : \n", X.toarray())
+    # print("\n\nX : \n", X.toarray())
 
     # Applying TFIDF 
     vectorizer2 = TfidfVectorizer(stop_words=stoplist, ngram_range = (2, 3)) 
     X2 = vectorizer2.fit_transform(headlines)
     features2 = vectorizer2.get_feature_names()
     scores = (X2.toarray()) 
-    print("\n\nX2 : \n", scores)
+    # print("\n\nX2 : \n", scores)
 
     # Getting top ranking features
     sums = X2.sum(axis=0)
@@ -172,7 +172,7 @@ def quadgram_data():
         data1.append((term, sums[0, col]))
     ranking = pd.DataFrame(data1, columns=["term", "rank"])
     words = ranking.sort_values("rank", ascending=False)
-    print("\n\nWords : \n", words.head(20))
+    # print("\n\nWords : \n", words.head(20))
 
     # Select top 50 nGrams and add to new dataframe
     quadgram_df = words.head(n=50)

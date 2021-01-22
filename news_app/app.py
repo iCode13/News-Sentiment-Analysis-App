@@ -7,6 +7,7 @@ import json
 
 from news_app.plots import article_vs_headline_plot, calendar_heatmap, box_plots, lat_lon_heatmap
 from news_app.sentiment import user_analysis, emotion_plotter, find_articles
+# from news_app.ngrams import trigram_plot
 
 from nltk import data
 
@@ -32,6 +33,12 @@ def visualizations():
     article_headline_figure = article_vs_headline_plot(df)
     calendar_heatmap_data, calendar_heatmap_layout = calendar_heatmap()
     boxplot_data, boxplot_layout = box_plots(df)
+    # tri_data, tri_layout = trigram_plot()
+
+    with open(os.path.join("news_app", "static", "js", "trigrams.json"), "r") as file:
+        trigram_dict = json.load(file)
+
+    trigram_json = json.dumps(trigram_dict)
 
     return render_template(
         "visualizations.html", 
@@ -40,6 +47,7 @@ def visualizations():
         calendar_heatmap_layout=calendar_heatmap_layout,
         boxplot_data=boxplot_data,
         boxplot_layout=boxplot_layout,
+        trigram_json=trigram_json,
   )
 
 

@@ -1,10 +1,10 @@
 console.log("app.js is running!")
 
-function animatedHeatmap() {
-	d3.json("static/js/animation.json").then(function (jsonData) {
-		console.log(jsonData)
-	})
-}
+// function animatedHeatmap() {
+// 	d3.json("http://project3-news-app.herokuapp.com/static/js/animation.json").then(function (jsonData) {
+// 		console.log(jsonData)
+// 	})
+// }
 
 function userAnalysis() {
     console.log("Running user analysis in app.py")

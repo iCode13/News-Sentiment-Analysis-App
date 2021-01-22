@@ -92,7 +92,19 @@
     const boxplot_data = {{ boxplot_data | safe }}
     const boxplot_layout = {{ boxplot_layout | safe }}
     Plotly.newPlot("boxplot", boxplot_data, boxplot_layout)
-    console.log(boxplot_data)
+
+    //trigrams
+    const trigram_json = {{ trigram_json | safe }}
+    console.log(trigram_json)
+    Plotly.newPlot("bigrams-plot", trigram_json)
+
+    // trigrams
+    //d3.json("http://project3-news-app.herokuapp.com/static/js/animation.json").then(function (jsonData) {
+    //console.log(jsonData)
+
+    //d3.json("/static/js/animation.json").then(function (trigramData) {
+    //console.log(trigramData)
+    //})
     
 </script>
 
