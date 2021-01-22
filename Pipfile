@@ -33,7 +33,6 @@ importlib-metadata = "1.7.0"
 plotly-express = "*"
 kaleido = "*"
 psutil = "*"
-gdal = {path = "C:/Users/dbanerji/Downloads/GDAL-3.2.1-cp37-cp37m-win_amd64.whl"}
 wheel = "*"
 shapely = "*"
 pipwin = "*"
