@@ -33,9 +33,6 @@ importlib-metadata = "1.7.0"
 plotly-express = "*"
 kaleido = "*"
 psutil = "*"
-wheel = "*"
-shapely = "*"
-pipwin = "*"
 
 [requires]
 python_version = "3.7"
