@@ -411,10 +411,92 @@ def lat_lon_heatmap():
 
     fig2.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1000
 
-    fig_json2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
+    fig2_json = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return fig_json2
+    return fig2_json
 
 
 def linechart():
-    return
+    linechart_df = pd.read_csv(os.path.join("news_app", "static", "data", "calendar_heatmap_new.csv"))
+
+    linechart_df["date"] = linechart_df["date"].apply(
+        lambda x: datetime.strptime(x, "%Y-%m-%d")
+    )
+    linechart_df["top_headlines"] = linechart_df["top_headlines"].apply(lambda x: eval(x))
+
+    linechart_df.head()
+    linechart_df["news_desk"].unique()
+
+    lines_colors_dict2 = {
+        "National": "rgba(25, 25, 112, 1)",  # "midnightblue",
+        "Business": "rgba(255, 215, 0, 1)",  # "gold",
+        "Science": "rgba(34, 139, 34, 1)",  # "forestgreen",
+        "Arts&Leisure": "rgba(138, 43, 226, 1)",  # "blueviolet",
+    }
+
+    visible_dict = {
+        "Business": [True, False, False, False],
+        "National": [False, True, False, False],
+        "Arts&Leisure": [False, False, True, False],
+        "Science": [False, False, False, True],
+    }
+
+    fig3 = go.Figure()
+    buttons = []
+
+    for desk in linechart_df["news_desk"].unique():
+        df_current = linechart_df.loc[linechart_df["news_desk"] == desk]
+
+        fig3.add_trace(
+            go.Scatter(
+                x=df_current["date"],
+                y=df_current["avg_score"],
+                text=df_current["top_headlines"],
+                customdata=df_current["news_desk"],
+                name=desk,
+                line={"color": lines_colors_dict2[desk]},
+                visible=False,
+                hovertemplate="<b>Most emotional %{customdata} headlines for %{x|%a %b %d, %Y}</b>:"
+                + "<br>%{text.score[0]} | %{text.headline[0]}"
+                + "<br>%{text.score[1]} | %{text.headline[1]}"
+                + "<br>%{text.score[2]} | %{text.headline[2]}"
+                + "<br><b>Today's Average: %{y}</b><extra></extra>",
+            )
+        )
+        buttons.append(
+            {
+                "label": desk,
+                "method": "update",
+                "args": [
+                    {"visible": visible_dict[desk]},
+                    {"title": f"Average Daily Sentiment for {desk} News"},
+                ],
+            }
+        )
+
+    fig3.data[0].update(visible=True)
+
+    fig3.update_layout(
+        title="Average Daily Sentiment for Business News",
+        title_x=0.5,
+        xaxis={"title": {"text": "Date"}},
+        yaxis={"title": {"text": "Average Headline Score"}},
+    )
+
+    fig3.update_xaxes(tickformat="%a %b %d, %Y")
+
+    fig3.update_layout(
+        updatemenus=[
+            {
+                "type": "buttons",
+                "direction": "right",
+                "active": 0,
+                "x": 0.3,
+                "y": 1.2,
+                "buttons": buttons,
+            }
+        ]
+    )
+
+    fig3_json = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
+    return fig3_json

@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import json
 
-from news_app.plots import article_vs_headline_plot, calendar_heatmap, box_plots, lat_lon_heatmap
+from news_app.plots import article_vs_headline_plot, calendar_heatmap, box_plots, lat_lon_heatmap, linechart
 from news_app.sentiment import user_analysis, emotion_plotter, find_articles
 # from news_app.ngrams import trigram_plot
 
@@ -31,9 +31,9 @@ def visualizations():
     # df["datetime"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%Y-%m-%d"))
     
     article_headline_figure = article_vs_headline_plot(df)
-    calendar_heatmap_data, calendar_heatmap_layout = calendar_heatmap()
     boxplot_data, boxplot_layout = box_plots(df)
-    # tri_data, tri_layout = trigram_plot()
+    calendar_heatmap_data, calendar_heatmap_layout = calendar_heatmap()
+    linechart_figure = linechart()
 
     with open(os.path.join("news_app", "static", "js", "trigrams.json"), "r") as file:
         trigram_dict = json.load(file)
@@ -42,11 +42,12 @@ def visualizations():
 
     return render_template(
         "visualizations.html", 
-        article_headline_figure=article_headline_figure, 
+        article_headline_figure=article_headline_figure,
+        boxplot_data=boxplot_data,
+        boxplot_layout=boxplot_layout, 
         calendar_heatmap_data=calendar_heatmap_data,
         calendar_heatmap_layout=calendar_heatmap_layout,
-        boxplot_data=boxplot_data,
-        boxplot_layout=boxplot_layout,
+        linechart_figure=linechart_figure,
         trigram_json=trigram_json,
   )
 
