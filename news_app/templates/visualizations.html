@@ -49,32 +49,64 @@
                 <br>
                 Follow a news desk's average daily sentiment in this chart.  Hovering over a point shows the headlines of the three "most emotional" articles from that news desk on that day.
                 <br>
-                Click and drag over a section of the calendar to zoom in on specific time periods.  Click the "home" icon in the upper right (cursor must be on chart) to reset the zoom level.
+                Click and drag over a section of the calendar to zoom in on specific time periods.  Double-click to reset the zoom level.
             </p>
         </div>
     </div>
 
     <br>
 
-    <!-- bigramps plot -->
+    <!-- linechart -->
     <div class="row">
-        <div class="col-md-3 summary" id="bigrams-summary">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at lacinia lorem, eget lacinia ligula. Phasellus ultrices, neque eget ullamcorper aliquam, elit tellus sodales metus, a vestibulum est erat vitae dui. Duis vitae erat iaculis eros lobortis tristique.</p>
+        <div class="col-md-3 summary" id="linechart-summary">
+            <p>
+                <b>Digging Deeper on Trends Over Time</b>
+                <br>
+                This plot depicts in even greater detail the trends in headline sentiment over time for major news desks.
+                <br>
+                Click and drag to zoom to a time period of interest (for example, from January 1, 2016 to January 1, 2017 or from May 1, 2015 to June 1, 2015).  Do you notice any yearly, monthly, or weekly patterns?  Double-click to reset the zoom level.
+            </p>
         </div>
-        <div class="col-md-9 plots" id="bigrams-plot">
+        <div class="col-md-9 plots" id="linechart">
         </div>
     </div>
 
     <br>
 
-    <!-- geographic heatmap -->
+    <!-- bigrams plot -->
     <div class="row">
-        <div class="col-md-9 plots" id="geographic-heatmap">
+        <div class="col-md-9 plots" id="bigrams-plot">
         </div>
-        <div class="col-md-3 summary" id="geographic-heatmap-summary">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at lacinia lorem, eget lacinia ligula. Phasellus ultrices, neque eget ullamcorper aliquam, elit tellus sodales metus, a vestibulum est erat vitae dui. Duis vitae erat iaculis eros lobortis tristique.</p>
+        <div class="col-md-3 summary" id="bigrams-summary">
+            <p>
+                <b>Bigrams Header</b>
+                <br>
+                Text about the bigram plot.
+                <br>
+                Suggestion for how to interact with the plot.
+            </p>
         </div>
     </div>
+
+    <br>
+
+    <!-- trigrams plot -->
+    <div class="row">
+        <div class="col-md-2 summary" id="trigrams-summary">
+            <p>
+                <b>Trigrams Header</b>
+                <br>
+                Text about the trigram plot.
+                <br>
+                Suggestion for how to interact with the plot.
+            </p>
+        </div>
+        <div class="col-md-10 plots" id="trigrams-plot">
+        </div>
+    </div>
+
+    <br>
+
 
 </div>
 
@@ -83,28 +115,28 @@
     const article_headline_figure = {{ article_headline_figure | safe }}
     Plotly.newPlot("article-headline-plot", article_headline_figure)
 
-    // heatmap
-    const calendar_heatmap_data = {{ calendar_heatmap_data | safe }}
-    const calendar_heatmap_layout = {{ calendar_heatmap_layout | safe }}
-    Plotly.newPlot("calendar-heatmap", calendar_heatmap_data, calendar_heatmap_layout)
-
     // boxplot
     const boxplot_data = {{ boxplot_data | safe }}
     const boxplot_layout = {{ boxplot_layout | safe }}
     Plotly.newPlot("boxplot", boxplot_data, boxplot_layout)
 
-    //trigrams
-    const trigram_json = {{ trigram_json | safe }}
-    console.log(trigram_json)
-    Plotly.newPlot("bigrams-plot", trigram_json)
+    // heatmap
+    const calendar_heatmap_data = {{ calendar_heatmap_data | safe }}
+    const calendar_heatmap_layout = {{ calendar_heatmap_layout | safe }}
+    Plotly.newPlot("calendar-heatmap", calendar_heatmap_data, calendar_heatmap_layout)
+
+    // linechart
+    const linechart_figure = {{ linechart_figure | safe }}
+    Plotly.newPlot("linechart", linechart_figure)
+
+    // bigrams
+    //const bigram_json = {{ bigram_json | safe }}
+    //Plotly.newPlot("bigrams-plot", bigram_json)
 
     // trigrams
-    //d3.json("http://project3-news-app.herokuapp.com/static/js/animation.json").then(function (jsonData) {
-    //console.log(jsonData)
+    const trigram_json = {{ trigram_json | safe }}
+    Plotly.newPlot("trigrams-plot", trigram_json)
 
-    //d3.json("/static/js/animation.json").then(function (trigramData) {
-    //console.log(trigramData)
-    //})
     
 </script>
 

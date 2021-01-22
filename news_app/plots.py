@@ -227,8 +227,10 @@ def calendar_heatmap():
             "rows": 3, 
             "columns": 1, 
             "pattern": "independent",
-            "roworder": "bottom to top",
-        }
+            "roworder": "top to bottom",
+        },
+        "margin": {"l":100},
+        "plot_bgcolor": "ghostwhite",
     }
 
     heatmap_data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
@@ -327,6 +329,8 @@ def box_plots(df_in):
         plot_layout = {
             "title": "Article Score Statistics",
             "hovermode": "closest",
+            "paper_bgcolor": "white",
+            "plot_bgcolor": "ghostwhite",
         }
 
     boxplot_data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
@@ -373,7 +377,7 @@ def lat_lon_heatmap():
         lat="latitude",
         custom_data=["headline", "location_details_dict", "article_score"],
         color="article_score",
-        color_continuous_scale="rdylgn",
+        color_continuous_scale="RdBu",
         opacity=0.6,
         mapbox_style="light",
         zoom=1,
@@ -481,9 +485,14 @@ def linechart():
         title_x=0.5,
         xaxis={"title": {"text": "Date"}},
         yaxis={"title": {"text": "Average Headline Score"}},
+        paper_bgcolor="white",
+        plot_bgcolor="ghostwhite",
     )
 
-    fig3.update_xaxes(tickformat="%a %b %d, %Y")
+    fig3.update_xaxes(
+        range=[linechart_df["date"].min(), linechart_df["date"].max()],
+        tickformat="%a %b %d, %Y")
+    fig3.update_yaxes(range=[-1, 1])
 
     fig3.update_layout(
         updatemenus=[
@@ -491,8 +500,8 @@ def linechart():
                 "type": "buttons",
                 "direction": "right",
                 "active": 0,
-                "x": 0.3,
-                "y": 1.2,
+                "x": 0.7,
+                "y": 1.15,
                 "buttons": buttons,
             }
         ]

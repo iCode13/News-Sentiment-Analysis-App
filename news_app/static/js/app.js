@@ -121,7 +121,7 @@ function articleSearch() {
 					.classed("ouput-div", true)
 					.property("id", `gauge-${i}`)
 
-				Plotly.newPlot(`gauge-${i}`, responseJson.gauges[i])
+				Plotly.newPlot(`gauge-${i}`, responseJson.gauges_data[i], responseJson.gauges_layout[i])
 
 				$.scrollTo($('#article-search-intro'), 700);
 			}

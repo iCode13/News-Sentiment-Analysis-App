@@ -37,7 +37,7 @@ input[type=text] {
  }
 
 .output-div {
-    height: 300px;
+    width: 600px;
 }
 
 .article-scrollable {
