@@ -396,6 +396,11 @@ def lat_lon_heatmap():
         hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Article Score: %{customdata[2]:.4f}",
     )
 
+    for frame in fig2.frames:
+        frame["data"][0].update(
+            hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<br>Article Score: %{customdata[2]:.4f}",
+        )
+
     fig2.update_layout(
         margin={"t": 5, "b": 5, "l": 5, "r": 5},
         mapbox_accesstoken=mapbox_token,
