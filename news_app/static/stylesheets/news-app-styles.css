@@ -148,7 +148,7 @@ nav a:hover::before {
     font-family: "Cheltenham";
     font-weight: normal;
     color: black;
-    font-size: 18px;
+    font-size: 17px;
     text-align: justify;
     text-justify: inter-word;
 }
