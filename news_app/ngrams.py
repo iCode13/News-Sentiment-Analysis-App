@@ -16,7 +16,7 @@ from flask import Flask, jsonify, render_template
 import nltk
 from nltk.corpus import stopwords
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 PATH = os.path.join("..", "data", "files", "headlines_with_nid.csv")
 
@@ -47,22 +47,23 @@ def trigram_data():
     vectorizer = CountVectorizer(stop_words=stoplist, ngram_range=(3, 3))
     X = vectorizer.fit_transform(headlines)
     features = vectorizer.get_feature_names()
-    print("X : \n", X.toarray())
+    print("\n\nX : \n", X.toarray())
 
     # Applying TFIDF 
-    vectorizer2 = TfidfVectorizer(ngram_range = (3,3)) 
-    X2 = vectorizer2.fit_transform(headlines) 
+    vectorizer2 = TfidfVectorizer(stop_words=stoplist, ngram_range = (3,3)) 
+    X2 = vectorizer2.fit_transform(headlines)
+    features2 = vectorizer2.get_feature_names()
     scores = (X2.toarray()) 
-    print("\n\nScores : \n", scores)
+    print("\n\nX2 : \n", scores)
 
     # Getting top ranking features
     sums = X2.sum(axis=0)
     data1 = []
-    for col, term in enumerate(features):
+    for col, term in enumerate(features2):
         data1.append((term, sums[0, col]))
     ranking = pd.DataFrame(data1, columns=["term", "rank"])
     words = ranking.sort_values("rank", ascending=False)
-    print("Words : \n", words.head(20))
+    print("\n\nWords : \n", words.head(20))
 
     # Select top 50 nGrams and add to new dataframe
     trigram_df = words.head(n=50)
@@ -152,19 +153,26 @@ def quadgram_data():
     stoplist = stopwords.words("english")
 
     # Get nGrams: (2, 2) for bigrams, (3, 3) for trigrams...
-    vectorizer = CountVectorizer(stop_words=stoplist, ngram_range=(4, 4))
+    vectorizer = CountVectorizer(stop_words=stoplist, ngram_range=(2, 3))
     X = vectorizer.fit_transform(headlines)
-    features = vectorizer.get_feature_names()
-    print("X : \n", X.toarray())
+    features1 = vectorizer.get_feature_names()
+    print("\n\nX : \n", X.toarray())
+
+    # Applying TFIDF 
+    vectorizer2 = TfidfVectorizer(stop_words=stoplist, ngram_range = (2, 3)) 
+    X2 = vectorizer2.fit_transform(headlines)
+    features2 = vectorizer2.get_feature_names()
+    scores = (X2.toarray()) 
+    print("\n\nX2 : \n", scores)
 
     # Getting top ranking features
-    sums = X.sum(axis=0)
-    data = []
-    for col, term in enumerate(features):
-        data.append((term, sums[0, col]))
-    ranking = pd.DataFrame(data, columns=["term", "rank"])
+    sums = X2.sum(axis=0)
+    data1 = []
+    for col, term in enumerate(features2):
+        data1.append((term, sums[0, col]))
+    ranking = pd.DataFrame(data1, columns=["term", "rank"])
     words = ranking.sort_values("rank", ascending=False)
-    print("Words : \n", words.head(20))
+    print("\n\nWords : \n", words.head(20))
 
     # Select top 50 nGrams and add to new dataframe
     quadgram_df = words.head(n=50)
@@ -198,7 +206,7 @@ def quadgram_plot():
     data_to_plot = [trace1,]
 
     plot_layout = {
-        "title": "Quadgram frequency",
+        "title": "Bigrams and Trigrams, Oh My!",
         "autosize": "false",
         "height": 700,
         "width": 1200,
@@ -210,7 +218,7 @@ def quadgram_plot():
           "pad": 4
         },
         "xaxis": {
-            "title": 'Quadgrams',
+            "title": 'Bigrams and Trigrams',
             "margin": "true",
             "tickangle": 45,
             "titlefont": {
@@ -245,15 +253,15 @@ quadgram_plot()
 # For reference, this is Ed's example for flask app, from p6w-6-python-only (app.py).
 # Using this to test deployment and see plot results.
 
-@app.route("/")
-def home():
-    tri_data, tri_layout = trigram_plot()
-    return render_template("index.html", data=tri_data, layout=tri_layout)
+# @app.route("/")
+# def home():
+#     tri_data, tri_layout = trigram_plot()
+#     return render_template("index.html", data=tri_data, layout=tri_layout)
 
-@app.route("/quadgram")
-def quadgram():
-    quad_data, quad_layout = quadgram_plot()
-    return render_template("quadgram.html", data=quad_data, layout=quad_layout)
+# @app.route("/quadgram")
+# def quadgram():
+#     quad_data, quad_layout = quadgram_plot()
+#     return render_template("quadgram.html", data=quad_data, layout=quad_layout)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
