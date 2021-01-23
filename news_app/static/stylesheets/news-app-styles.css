@@ -69,6 +69,7 @@ input[type=text] {
     color: maroon;
 }
 
+
 /* define navigation block */
 .navigation {
     display: block;
@@ -151,6 +152,11 @@ nav a:hover::before {
     font-size: 17px;
     text-align: justify;
     text-justify: inter-word;
+}
+
+.main-summary h1 {
+    font-family: "Cheltenham";
+    font-weight: bold;
 }
 
 .contributors {
