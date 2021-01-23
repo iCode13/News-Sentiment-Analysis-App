@@ -1,3 +1,4 @@
+<img src=Readme-Images/header.png width=800></img>
 #### Team Members: Alicia Pelkey, Amy Banerji, David Vance, Rachel Reynolds
 
 #### UT Data Analysis & Visualization Bootcamp | January 2021
