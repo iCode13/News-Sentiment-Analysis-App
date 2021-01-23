@@ -406,7 +406,8 @@ def lat_lon_heatmap():
         )
 
     fig2.update_layout(
-        margin={"t": 5, "b": 5, "l": 5, "r": 5},
+        title={"text": "Headlines Around the World (2015-2017)"},
+        margin={"t": 30, "b": 5, "l": 5, "r": 5},
         mapbox_accesstoken=mapbox_token,
         sliders=[{"currentvalue": {"prefix": "Month: "}}],
     )
