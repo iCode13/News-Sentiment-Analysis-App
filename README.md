@@ -60,13 +60,19 @@ A program then applies a lexicon-based sentiment analysis to a text, and breaks 
 
 ## Screenshots:
 Home Page
+
 <img src=Readme-Images/index.png width=500></img>
 Visualizations Page
+
 <img src=Readme-Images/viz1.png width=500></img>
 <img src=Readme-Images/viz2.png width=500></img>
+
 Geoviz Page
+
 <img src=Readme-Images/geo.png width=500></img>
+
 Interactive Page
+
 <img src=Readme-Images/interactive1.png width=500></img>
 <img src=Readme-Images/interactive2.png width=500></img>
 
