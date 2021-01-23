@@ -5,58 +5,58 @@
 
 <div class="container" id="all-maps">
     
-    <!-- weekday heatmap div -->
+    <!-- weekday choropleth div -->
     <div class="row">   
-        <div class="col-md-12 map-summary" id="heatmap-weekday-summary">
-            <b>Weekday Title...</b>
+        <div class="col-md-12 map-summary" id="choropleth-map-weekday-summary">
+            <b>Geographic Distribution of News Sentiment by Day of the Week</b>
             </br>
             <p>
-                Lorem ipsum dolor sit amet...
+                The choropleth map animations below depict geographic variations of news article sentiment by day of the week based on data from 2015-2017. Play the animation, pause at any time and hover the cursor over any US state or country to see it's name along with the mean sentiment score of articles from that geographic entity and the day of the week it represents.
             </p>
         </div>
     </div>
     <div class=row>
-        <div class="col-md-6 maps" id="heatmap-us-weekday">
+        <div class="col-md-6 maps" id="choropleth-map-us-weekday">
         </div>
-        <div class="col-md-6 maps" id="heatmap-global-weekday">
+        <div class="col-md-6 maps" id="choropleth-map-global-weekday">
         </div>
     </div>
 
     <br>
 
-    <!-- seasonal heatmap div -->
+    <!-- monthly seasonal choropleth div -->
     <div class="row">
-        <div class="col-md-12 map-summary" id="heatmap-seasonal-summary">
-            <b>Seasonal Title...</b>
+        <div class="col-md-12 map-summary" id="choropleth-map-monthly-summary">
+            <b>Geographic Distribution of News Sentiment by Month</b>
             </br>
             <p>
-                Lorem ipsum dolor sit amet...
+                The choropleth map animations below depict geographic and seasonal variations of news article sentiment by month based on data from 2015-2017. Play the animation, pause at any time and hover the cursor over any US state or country to see it's name along with the mean sentiment score of articles from that geographic entity and the month it represents.
             </p>
         </div>
     </div>
     <div class=row>
-        <div class="col-md-6 maps" id="heatmap-us-seasonal">
+        <div class="col-md-6 maps" id="choropleth-map-us-monthly">
         </div>
-        <div class="col-md-6 maps" id="heatmap-global-seasonal">
+        <div class="col-md-6 maps" id="choropleth-map-global-monthly">
         </div>
     </div>
 
     <br>
 
-    <!-- monthly over 3 years heatmap div -->
+    <!-- monthly over 3 years choropleth div -->
     <div class="row">
-        <div class="col-md-12 map-summary" id="heatmap-monthly-summary">
-            <b>Monthly Title...</b>    
+        <div class="col-md-12 map-summary" id="choropleth-map-3years-summary">
+            <b>Geographic Distribution of News Sentiment from 2015 to 2017 (Monthly)</b>    
             </br>
             <p>
-                Lorem ipsum dolor sit amet...
+                The choropleth map animations below depict geographic variations of news article sentiment over time on a monthly basis based from 2015-2017. Play the animation, pause at any time and hover the cursor over any US state or country to see it's name along with the mean sentiment score of articles from that geographic entity and the year-month it represents.
             </p>
         </div>
     </div>
     <div class=row>
-        <div class="col-md-6 maps" id="heatmap-us-monthly">
+        <div class="col-md-6 maps" id="choropleth-map-us-3years">
         </div>
-        <div class="col-md-6 maps" id="heatmap-global-monthly">
+        <div class="col-md-6 maps" id="choropleth-map-global-3years">
         </div>
     </div>
 
@@ -82,10 +82,28 @@
 </div>
 
 <script>
+    
+    // choropleth-map-us-weekday
+    Plotly.newPlot("choropleth-map-us-weekday", {{ fig6_weekday_json | safe }}) 
+    
+    // choropleth-map-global-weekday
+    Plotly.newPlot("choropleth-map-global-weekday", {{ fig3_weekday_json | safe }}) 
+
+    // choropleth-map-us-monthly
+    Plotly.newPlot("choropleth-map-us-monthly", {{ fig5_month_json | safe }}) 
+
+    // choropleth-map-global-monthly
+    Plotly.newPlot("choropleth-map-global-monthly", {{ fig2_month_json | safe }}) 
+    
+    // choropleth-map-us-3years
+    Plotly.newPlot("choropleth-map-us-3years", {{ fig4_time_json | safe }}) 
+    
+    // choropleth-map-global-3yearss
+    Plotly.newPlot("choropleth-map-global-3years", {{ fig1_time_json | safe }})       
+    
     // lat-lon heatmap
     const lat_lon_heatmap_dict = {{ lat_lon_heatmap_dict | safe }}
-    Plotly.newPlot("lat-lon-heatmap", lat_lon_heatmap_dict)
-
+    Plotly.newPlot("lat-lon-heatmap", lat_lon_heatmap_dict)        
     
 </script>
 
