@@ -217,3 +217,10 @@ nav a:hover::before {
     text-align: justify;
     text-justify: inter-word;
 }
+
+.maps-header{
+    font-family: "Cheltenham";
+    font-weight: normal;
+    text-align: center;
+    margin-top: 10px;
+}
