@@ -59,12 +59,16 @@ A program then applies a lexicon-based sentiment analysis to a text, and breaks 
 * Article search by user inputted keyword(s) in a chosen category -- gives results as a random sample of 5 articles and a Senti-meter.
 
 ## Screenshots:
-<img src=Readme-Images/index.png width=250></img>
-<img src=Readme-Images/viz1.png width=250></img>
-<img src=Readme-Images/viz2.png width=250></img>
-<img src=Readme-Images/geo.png width=250></img>
-<img src=Readme-Images/interactive1.png width=250></img>
-<img src=Readme-Images/interactive2.png width=250></img>
+Home Page
+<img src=Readme-Images/index.png width=500></img>
+Visualizations Page
+<img src=Readme-Images/viz1.png width=500></img>
+<img src=Readme-Images/viz2.png width=500></img>
+Geoviz Page
+<img src=Readme-Images/geo.png width=500></img>
+Interactive Page
+<img src=Readme-Images/interactive1.png width=500></img>
+<img src=Readme-Images/interactive2.png width=500></img>
 
 ## Citations:
 * VADER Sentiment Analysis: 
