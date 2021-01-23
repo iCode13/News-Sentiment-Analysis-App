@@ -1,9 +1,9 @@
-<img src=Readme-Images/header.png width=800></img>
+<img src=Readme-Images/header.png width=1000></img>
 #### Team Members: Alicia Pelkey, Amy Banerji, David Vance, Rachel Reynolds
 
 #### UT Data Analysis & Visualization Bootcamp | January 2021
 
-#### [Deployed Heroku Link](https://project3-news-app.herokuapp.com/)
+#### [Link to App Deployed on Heroku](https://project3-news-app.herokuapp.com/)
 
 # News Sentiment Analysis
 
@@ -59,7 +59,12 @@ A program then applies a lexicon-based sentiment analysis to a text, and breaks 
 * Article search by user inputted keyword(s) in a chosen category -- gives results as a random sample of 5 articles and a Senti-meter.
 
 ## Screenshots:
-![Example screenshot](./img/screenshot.png)
+<img src=Readme-Images/index.png width=250></img>
+<img src=Readme-Images/viz1.png width=250></img>
+<img src=Readme-Images/viz2.png width=250></img>
+<img src=Readme-Images/geo.png width=250></img>
+<img src=Readme-Images/interactive1.png width=250></img>
+<img src=Readme-Images/interactive2.png width=250></img>
 
 ## Citations:
 * VADER Sentiment Analysis: 
