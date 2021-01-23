@@ -11,8 +11,12 @@ df = pd.read_csv(path)
 df = df.rename(columns = {'article_score':'article_sentiment'})
 
 
-def choropleth_global_overtime():
+def choropleth_global_overtime(df):
     
+    path = "static/data/choropleth_locations3_all_sentiment.csv"
+    df = pd.read_csv(path)
+    df = df.rename(columns = {'article_score':'article_sentiment'})
+
     # Extract year-month from date to groupby over time
     df_country_time = df[['country', 'country_ISO_code', 'article_sentiment', 'pub_date']].copy()
     df_country_time['year_month'] = " "    # Extract only month and year from date
@@ -51,11 +55,15 @@ def choropleth_global_overtime():
         title = 'Global News Sentiment Over Time (2015-2017)',
         height = 800             
     )
-    fig1_time_json = json.dumps(fig1_time, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig1_time_json
+    plotly.io.write_json(fig1_time, "static/js/fig1_time.json")
+    return
     
 
-def choropleth_global_bymonth():
+def choropleth_global_bymonth(df):
+    
+    path = "static/data/choropleth_locations3_all_sentiment.csv"
+    df = pd.read_csv(path)
+    df = df.rename(columns = {'article_score':'article_sentiment'})
     
     # Get mean sentiment scores by month
     df_country_month = df[['country', 'country_ISO_code', 'article_sentiment', 'month']].copy()
@@ -104,11 +112,15 @@ def choropleth_global_bymonth():
               title = 'Global News Sentiment by Month (2015-2017)',
               height = 800             
     )
-    fig2_month_json = json.dumps(fig2_month, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig2_month_json
+    plotly.io.write_json(fig2_month, "static/js/fig2_month.json")
+    return
 
 
-def choropleth_global_byweekday():
+def choropleth_global_byweekday(df):
+    
+    path = "static/data/choropleth_locations3_all_sentiment.csv"
+    df = pd.read_csv(path)
+    df = df.rename(columns = {'article_score':'article_sentiment'})
     
     # Get mean sentiment scores by day of the week
     df_country_weekday = df[['country', 'country_ISO_code', 'article_sentiment', 'weekday']].copy()
@@ -157,12 +169,16 @@ def choropleth_global_byweekday():
         title = 'Global News Sentiment by Day of the Week (2015-2017)',
         height = 800             
     )
-    fig3_weekday_json = json.dumps(fig3_weekday, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig3_weekday_json
+    plotly.io.write_json(fig3_weekday, "static/js/fig3_weekday.json")
+    return
 
 
-def choropleth_us_overtime():
+def choropleth_us_overtime(df):
    
+    path = "static/data/choropleth_locations3_all_sentiment.csv"
+    df = pd.read_csv(path)
+    df = df.rename(columns = {'article_score':'article_sentiment'})
+    
     # Extract year-month from date to groupby over time
     df_state_time = df[['state', 'US_state_code', 'article_sentiment', 'pub_date']].copy()
     df_state_time['year_month'] = " "    # Extract only month and year from date
@@ -200,11 +216,16 @@ def choropleth_us_overtime():
         title = 'US News Sentiment Over Time (2015-2017)',
         height = 800             
     )
-    fig4_time_json = json.dumps(fig4_time, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig4_time_json
+    plotly.io.write_json(fig4_time, "static/js/fig4_time.json")
+    return
     
 
-def choropleth_us_bymonth():
+def choropleth_us_bymonth(df):
+
+    path = "static/data/choropleth_locations3_all_sentiment.csv"
+    df = pd.read_csv(path)
+    df = df.rename(columns = {'article_score':'article_sentiment'})
+
 
     # Get mean sentiment scores by month
     df_state_month = df[['state', 'US_state_code', 'article_sentiment', 'month']].copy()
@@ -255,11 +276,15 @@ def choropleth_us_bymonth():
         title = 'US News Sentiment by Month (2015-2017)',
         height = 800             
     )
-    fig5_month_json = json.dumps(fig5_month, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig5_month_json
+    plotly.io.write_json(fig5_month, "static/js/fig5_month.json")
+    return
 
 
-def choropleth_us_byweekday():
+def choropleth_us_byweekday(df):
+    
+    path = "static/data/choropleth_locations3_all_sentiment.csv"
+    df = pd.read_csv(path)
+    df = df.rename(columns = {'article_score':'article_sentiment'})
     
     # Get mean sentiment scores by state by day of the week
     df_state_weekday = df[['state', 'US_state_code', 'article_sentiment', 'weekday']].copy()
@@ -310,8 +335,13 @@ def choropleth_us_byweekday():
         title = 'US News Sentiment by Day of the Week (2015-2017)',
         height = 800             
     )
-    fig6_weekday_json = json.dumps(fig6_weekday, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig6_weekday_json
+    plotly.io.write_json(fig6_weekday, "static/js/fig6_weekday.json")
+    return
 
-    
+choropleth_global_overtime(df)
+choropleth_global_bymonth(df)
+choropleth_global_byweekday(df)
+choropleth_us_overtime(df)
+choropleth_us_bymonth(df)
+choropleth_us_byweekday(df)
 
