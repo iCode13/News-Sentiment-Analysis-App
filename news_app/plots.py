@@ -377,7 +377,7 @@ def lat_lon_heatmap():
         lat="latitude",
         custom_data=["headline", "location_details_dict", "article_score"],
         color="article_score",
-        color_continuous_scale="RdBu",
+        color_continuous_scale="rdylgn",
         opacity=0.6,
         mapbox_style="light",
         zoom=1,
