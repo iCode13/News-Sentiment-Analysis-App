@@ -62,10 +62,11 @@ A program then applies a lexicon-based sentiment analysis to a text, and breaks 
 Home Page
 
 <img src=Readme-Images/index.png width=500></img>
+
 Visualizations Page
 
-<img src=Readme-Images/viz1.png width=500></img>
-<img src=Readme-Images/viz2.png width=500></img>
+<img src=Readme-Images/viz1.png height=400></img>
+<img src=Readme-Images/viz2.png height=400></img>
 
 Geoviz Page
 
@@ -74,7 +75,6 @@ Geoviz Page
 Interactive Page
 
 <img src=Readme-Images/interactive1.png width=500></img>
-<img src=Readme-Images/interactive2.png width=500></img>
 
 ## Citations:
 * VADER Sentiment Analysis: 
