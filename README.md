@@ -65,8 +65,9 @@ Home Page
 
 Visualizations Page
 
-<img src=Readme-Images/viz1.png height=400></img>
-<img src=Readme-Images/viz2.png height=400></img>
+<img src=Readme-Images/viz1.png width=500></img>
+
+<img src=Readme-Images/viz2.png width=500></img>
 
 Geoviz Page
 
