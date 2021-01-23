@@ -53,7 +53,7 @@ def choropleth_global_overtime():
     )
     fig1_time_json = json.dumps(fig1_time, cls=plotly.utils.PlotlyJSONEncoder)
     return fig1_time_json
-
+    
 
 def choropleth_global_bymonth():
     
@@ -202,7 +202,7 @@ def choropleth_us_overtime():
     )
     fig4_time_json = json.dumps(fig4_time, cls=plotly.utils.PlotlyJSONEncoder)
     return fig4_time_json
-
+    
 
 def choropleth_us_bymonth():
 
@@ -312,7 +312,6 @@ def choropleth_us_byweekday():
     )
     fig6_weekday_json = json.dumps(fig6_weekday, cls=plotly.utils.PlotlyJSONEncoder)
     return fig6_weekday_json
-
 
     
 
