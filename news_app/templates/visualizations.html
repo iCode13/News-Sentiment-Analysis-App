@@ -130,8 +130,8 @@
     Plotly.newPlot("linechart", linechart_figure)
 
     // bigrams
-    //const bigram_json = {{ bigram_json | safe }}
-    //Plotly.newPlot("bigrams-plot", bigram_json)
+    const bigram_json = {{ bigram_json | safe }}
+    Plotly.newPlot("bigrams-plot", bigram_json)
 
     // trigrams
     const trigram_json = {{ trigram_json | safe }}

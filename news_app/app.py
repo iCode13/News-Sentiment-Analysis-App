@@ -35,6 +35,11 @@ def visualizations():
     calendar_heatmap_data, calendar_heatmap_layout = calendar_heatmap()
     linechart_figure = linechart()
 
+    with open(os.path.join("news_app", "static", "js", "bigrams.json"), "r") as file:
+        bigram_dict = json.load(file)
+
+    bigram_json = json.dumps(bigram_dict)
+
     with open(os.path.join("news_app", "static", "js", "trigrams.json"), "r") as file:
         trigram_dict = json.load(file)
 
@@ -48,6 +53,7 @@ def visualizations():
         calendar_heatmap_data=calendar_heatmap_data,
         calendar_heatmap_layout=calendar_heatmap_layout,
         linechart_figure=linechart_figure,
+        bigram_json=bigram_json,
         trigram_json=trigram_json,
   )
 
@@ -90,10 +96,40 @@ def article_search():
 
 @app.route("/maps")
 def maps():
+
+    with open(os.path.join("news_app", "static", "js", "fig1_time.json"), "r") as file:
+        fig1_time_dict = json.load(file)
+    fig1_time_json = json.dumps(fig1_time_dict)
+
+    with open(os.path.join("news_app", "static", "js", "fig2_month.json"), "r") as file:
+        fig2_month_dict = json.load(file)
+    fig2_month_json = json.dumps(fig2_month_dict)
+
+    with open(os.path.join("news_app", "static", "js", "fig3_weekday.json"), "r") as file:
+        fig3_weekday_dict = json.load(file)
+    fig3_weekday_json = json.dumps(fig3_weekday_dict)
+
+    with open(os.path.join("news_app", "static", "js", "fig4_time.json"), "r") as file:
+        fig4_time_dict = json.load(file)
+    fig4_time_json = json.dumps(fig4_time_dict)
+
+    with open(os.path.join("news_app", "static", "js", "fig5_month.json"), "r") as file:
+        fig5_month_dict = json.load(file)
+    fig5_month_json = json.dumps(fig5_month_dict)
     
+    with open(os.path.join("news_app", "static", "js", "fig6_weekday.json"), "r") as file:
+        fig6_weekday_dict = json.load(file)
+    fig6_weekday_json = json.dumps(fig6_weekday_dict)
+
     lat_lon_heatmap_dict = lat_lon_heatmap()
 
     return render_template(
-        "maps.html", 
+        "maps.html",
+        fig1_time_json=fig1_time_json,
+        fig2_month_json=fig2_month_json,
+        fig3_weekday_json=fig3_weekday_json,
+        fig4_time_json=fig4_time_json,
+        fig5_month_json=fig5_month_json,
+        fig6_weekday_json=fig6_weekday_json,
         lat_lon_heatmap_dict=lat_lon_heatmap_dict
   )
