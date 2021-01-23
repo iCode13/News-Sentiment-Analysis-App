@@ -501,7 +501,7 @@ def linechart():
                 "type": "buttons",
                 "direction": "right",
                 "active": 0,
-                "x": 0.7,
+                "x": 0.65,
                 "y": 1.15,
                 "buttons": buttons,
             }
