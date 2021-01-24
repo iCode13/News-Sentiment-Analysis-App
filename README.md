@@ -1,5 +1,5 @@
 <img src=Readme-Images/header.png width=1000></img>
-#### Team Members: Alicia Pelkey, Amy Banerji, David Vance, Rachel Reynolds
+#### Team Members: Amy Banerji, Alicia Pelkey, Rachel Reynolds's, David Vance
 
 #### UT Data Analysis & Visualization Bootcamp | January 2021
 
@@ -22,7 +22,7 @@ With data gathered from the New York Times Archives API, we analyzed over 50,000
 
 ## Data Set:
 * [New York Times Archives](https://developer.nytimes.com/docs/articlesearch-product/1/overview): 
-Collected data from a 3-year period from 2015 to 2017.
+Collected data over a 3-year period from 2015 to 2017.
 
 ## Sentiment Analysis Using Natural Language Processing (NLP):
 A type of NLP called Sentiment Analysis was performed that attempts to determine some measure of the "feeling" of a text, often described as the text's positivity or negativity. A simple form of sentiment analysis was employed that uses a "lexicon," or a list of words that have been assigned meanings. 
@@ -79,9 +79,9 @@ Interactive Page
 
 ## Citations:
 * VADER Sentiment Analysis: 
-C.J. Hutto and E.E. Gilbert. "VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text." Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI (June 2014).
+    *  C.J. Hutto and E.E. Gilbert. "VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text." Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI (June 2014).
 * Natural Language Toolkit (NLTK) Project:
-    *Steven Bird, Edward Loper, and Ewan Klein. Natural Language Processing with Python. O’Reilly Media Inc. (2009).
+    * Steven Bird, Edward Loper, and Ewan Klein. Natural Language Processing with Python. O’Reilly Media Inc. (2009).
 * NRCLex API
     * Mark C. Bailey (2019).
 * NRC Lexicon
