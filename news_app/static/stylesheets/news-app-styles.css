@@ -23,6 +23,13 @@
 
 /* ---- interactive page ---- */
 
+.interaction-header{
+    font-family: "Cheltenham";
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
 .interaction-intro {
     margin-top: 10px;
     font-family: "Cheltenham";
@@ -224,7 +231,7 @@ nav a:hover::before {
 
 .maps-header{
     font-family: "Cheltenham";
-    font-weight: normal;
+    font-weight: bold;
     text-align: center;
     margin-top: 10px;
 }
