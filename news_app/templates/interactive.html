@@ -23,7 +23,7 @@
         </div>
         <div class="interaction-intro" class="col-md-12 interaction-intro" id="user-analysis-intro">
             <br>
-              <h2>Sentiment Analyzer:</h2>            
+              <h2> class="interaction-body">Sentiment Analyzer:</h2>            
             <p>
               Your headline undergoes two types of analyses--first, a "VADER sentiment analysis" that constructs a score based on the positivity or negativity of each word in your headline, including "boosting" your score based on words like "very" or "really."  VADER also recognizes exclamation points and words in ALL CAPS, so try out your favorite Tweets to see how you can affect the sentiment score!  Additionally, the analyzer uses the NRCLex lexicon of emotional words to identify certain emotions associated with words in your headline.  Will the words you choose convey surprise? Joy? Fear? Antici...pation?  Check out the sample headlines above, and then try it out to see what you find!
             </p>
@@ -32,8 +32,8 @@
 
     <br/>
 
-     <!-- Sentiment Analyzer -->
-     
+     <!-- News Analyzer -->
+     <!-- <form action="/analyzer" method="POST" style="width: 500px; margin: auto"> -->
        <div class="row">
          <label for="user-text-input" class="text-muted">Sentiment Analyzer:</label>
        <div class="col-lg-4">
@@ -59,11 +59,11 @@
      <br/>
 
     <!-- News Search -->
-      
+    <!-- <form action="/analyzer" method="POST" style="width: 500px; margin: auto"> --> 
       <div class ="row">
         <div class="col-md-12 interaction-intro" id="article-search-intro">
           <p>
-              <h2>Article Search:</h2>
+              <h2> class="interaction-body">Article Search:</h2>
               <p>
               To search the 50,000+ headlines in our dataset, choose a search category such as "Person" or "Organization," and then enter your search term (simpler searches work best).  Your results will be up to 5 randomly sampled articles that match your search term.  Results display the article headline, the lead paragraph, and a sentiment analysis (the "Senti-Meter!") based on the headline's VADER sentiment score.
             </p>
@@ -77,7 +77,7 @@
        <div class="col-lg-4">
        <div class="input-box">
                         <select name="keyword" id="keyword-type">
-                                <option value="" disabled selected>Search Categories</option>
+                                <option value="">Search Categories</option>
                                 <option value="persons">Person</option>
                                 <option value="glocations">Location</option>
                                 <option value="subject">Subject</option>
@@ -102,6 +102,8 @@
       <div class="row" id="article-search-output">
       <br/>
       <br/>
+        <!--div class="col-md-6" id="user-analysis-gauge"></div>
+        <div class="col-md-6" id="user-analysis-emotions"></div-->
       </div>
      <br/>
      <br/>
