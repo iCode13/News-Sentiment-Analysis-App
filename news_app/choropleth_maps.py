@@ -57,7 +57,6 @@ def choropleth_global_overtime(df):
         color_continuous_midpoint=0,
         title = 'Global News Sentiment Over Time',
         height = 625,
-        width = 1000,
     )
     plotly.io.write_json(fig1_time, "static/js/fig1_time.json")
     return
@@ -117,8 +116,7 @@ def choropleth_global_bymonth(df):
         color_continuous_scale = 'BrBg', 
         range_color=(-0.8,0.8),
         title = 'Global News Sentiment by Month',
-        height = 625,
-        width = 1000,          
+        height = 625,     
     )
     plotly.io.write_json(fig2_month, "static/js/fig2_month.json")
     return
@@ -178,8 +176,7 @@ def choropleth_global_byweekday(df):
         color_continuous_scale = 'RdBu',    
         range_color=(-0.8,0.8),
         title = 'Global News Sentiment by Day of the Week',
-        height = 625,
-        width = 1000,             
+        height = 625,         
     )
     plotly.io.write_json(fig3_weekday, "static/js/fig3_weekday.json")
     return
@@ -229,8 +226,7 @@ def choropleth_us_overtime(df):
         locationmode = 'USA-states',
         scope = "usa",
         title = 'US News Sentiment Over Time',
-        height = 625,
-        width = 1000,              
+        height = 625,           
     )
     plotly.io.write_json(fig4_time, "static/js/fig4_time.json")
     return
@@ -293,8 +289,7 @@ def choropleth_us_bymonth(df):
         locationmode = 'USA-states',
         scope = "usa",
         title = 'US News Sentiment by Month',
-        height = 625,
-        width = 1000,           
+        height = 625,        
     )
     plotly.io.write_json(fig5_month, "static/js/fig5_month.json")
     return
@@ -356,8 +351,7 @@ def choropleth_us_byweekday(df):
         locationmode = 'USA-states',
         scope = "usa",
         title = 'US News Sentiment by Day of the Week',
-        height = 625,
-        width = 1000,           
+        height = 625,      
     )
     plotly.io.write_json(fig6_weekday, "static/js/fig6_weekday.json")
     return
