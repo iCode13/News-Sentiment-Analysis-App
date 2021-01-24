@@ -23,20 +23,27 @@
 
 /* ---- interactive page ---- */
 
-.interaction-header{
+.interaction-header {
+    margin-top: 10px;    
     font-family: "Cheltenham";
     font-weight: bold;
     text-align: center;
-    margin-top: 10px;
 }
 
 .interaction-intro {
-    margin-top: 10px;
+    margin-top: 10px;  
     font-family: "Cheltenham";
     font-weight: normal;
     font-size: 18px;
     text-align: justify;
     text-justify: inter-word;
+}
+
+.interaction-intro h2 {
+    margin-top: 10px;    
+    font-family: "Cheltenham";
+    font-weight: bold;
+    text-align: center;
 }
 
 .sample-images {
@@ -229,7 +236,7 @@ nav a:hover::before {
     text-justify: inter-word;
 }
 
-.maps-header{
+.maps-header {
     font-family: "Cheltenham";
     font-weight: bold;
     text-align: center;
