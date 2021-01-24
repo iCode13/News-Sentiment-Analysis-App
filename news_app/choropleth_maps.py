@@ -39,21 +39,25 @@ def choropleth_global_overtime(df):
         df_country_time['article_sentiment'][i] = "{:.4f}".format(df_country_time['article_sentiment'][i])
 
     # Create animation
+    df_country_time = df_country_time.rename(columns = {'article_sentiment':'Article Sentiment'})
+    df_country_time = df_country_time.rename(columns = {'year_month':'Year-Month'})
+
     fig1_time = px.choropleth(df_country_time,               
         locations = "country_ISO_code",               
-        color = "article_sentiment",
-        animation_frame = "year_month",
+        color = "Article Sentiment",
+        animation_frame = "Year-Month",
         hover_name = "country",
         hover_data={
-            "article_sentiment": True,
-            "year_month": True,                  
+            "Article Sentiment": True,
+            "Year-Month": True,                  
             "country_ISO_code": False,
         },
         color_continuous_scale = 'RdBu',
         range_color=(-0.8,0.8),
         color_continuous_midpoint=0,
-        title = 'Global News Sentiment Over Time (2015-2017)',
-        height = 800             
+        title = 'Global News Sentiment Over Time',
+        height = 500,
+        width = 800,
     )
     plotly.io.write_json(fig1_time, "static/js/fig1_time.json")
     return
@@ -97,20 +101,24 @@ def choropleth_global_bymonth(df):
     df_country_month = df_country_month.reset_index()
 
     # Create animation
+    df_country_month = df_country_month.rename(columns = {'article_sentiment':'Article Sentiment'})
+    df_country_month = df_country_month.rename(columns = {'month':'Month'})
+
     fig2_month = px.choropleth(df_country_month,               
         locations = "country_ISO_code",               
-        color = "article_sentiment",
+        color = "Article Sentiment",
         hover_name = "country",  
-        animation_frame = "month",
+        animation_frame = "Month",
         hover_data={
-        "article_sentiment": True,
-        "month": True,                  
-        "country_ISO_code": False,
+            "Article Sentiment": True,
+            "Month": True,                  
+            "country_ISO_code": False,
         },
-              color_continuous_scale = 'BrBg', 
-              range_color=(-0.8,0.8),
-              title = 'Global News Sentiment by Month (2015-2017)',
-              height = 800             
+        color_continuous_scale = 'BrBg', 
+        range_color=(-0.8,0.8),
+        title = 'Global News Sentiment by Month',
+        height = 500,
+        width = 800,          
     )
     plotly.io.write_json(fig2_month, "static/js/fig2_month.json")
     return
@@ -154,20 +162,24 @@ def choropleth_global_byweekday(df):
     df_country_weekday = df_country_weekday.reset_index()
     
     # Create animation
+    df_country_weekday = df_country_weekday.rename(columns = {'article_sentiment':'Article Sentiment'})
+    df_country_weekday = df_country_weekday.rename(columns = {'weekday':'Day of the Week'})
+
     fig3_weekday = px.choropleth(df_country_weekday,               
         locations = "country_ISO_code",               
-        color = "article_sentiment",
-        animation_frame = "weekday",                
+        color = "Article Sentiment",
+        animation_frame = "Day of the Week",                
         hover_name = "country",
         hover_data={
-            "article_sentiment": True,
-            "weekday": True,
+            "Article Sentiment": True,
+            "Day of the Week": True,
             "country_ISO_code": False,
         },            
         color_continuous_scale = 'RdBu',    
         range_color=(-0.8,0.8),
-        title = 'Global News Sentiment by Day of the Week (2015-2017)',
-        height = 800             
+        title = 'Global News Sentiment by Day of the Week',
+        height = 500,
+        width = 800,             
     )
     plotly.io.write_json(fig3_weekday, "static/js/fig3_weekday.json")
     return
@@ -199,22 +211,26 @@ def choropleth_us_overtime(df):
     })
     
     # Create animation
+    df_state_time = df_state_time.rename(columns = {'article_sentiment':'Article Sentiment'})
+    df_state_time = df_state_time.rename(columns = {'year_month':'Year-Month'})
+
     fig4_time = px.choropleth(df_state_time,               
         locations = "US_state_code",               
-        color = "article_sentiment",
+        color = "Article Sentiment",
+        animation_frame = "Year-Month",                
         hover_name = "state",
         hover_data = {
-            "article_sentiment": True,
-            "year_month": True,                  
+            "Article Sentiment": True,
+            "Year-Month": True,                  
             "US_state_code": False,
         },
-        animation_frame = "year_month",   
         color_continuous_scale = 'RdBu',
         range_color = (-0.8,0.8),
         locationmode = 'USA-states',
         scope = "usa",
-        title = 'US News Sentiment Over Time (2015-2017)',
-        height = 800             
+        title = 'US News Sentiment Over Time',
+        height = 500,
+        width = 800,              
     )
     plotly.io.write_json(fig4_time, "static/js/fig4_time.json")
     return
@@ -259,22 +275,26 @@ def choropleth_us_bymonth(df):
     df_state_month = df_state_month.reset_index()
 
     # Create animation
+    df_state_month = df_state_month.rename(columns = {'article_sentiment':'Article Sentiment'})
+    df_state_month = df_state_month.rename(columns = {'month':'Month'})
+
     fig5_month = px.choropleth(df_state_month,               
         locations = "US_state_code",               
-        color = "article_sentiment",
-        animation_frame = "month",               
+        color = "Article Sentiment",
+        animation_frame = "Month",               
         hover_name = "state",  
         hover_data = {
-            "article_sentiment": True,
-            "month": True,
+            "Article Sentiment": True,
+            "Month": True,
             "US_state_code": False,
         },               
         color_continuous_scale = 'BrBg', 
         range_color = (-0.8,0.8),
         locationmode = 'USA-states',
         scope = "usa",
-        title = 'US News Sentiment by Month (2015-2017)',
-        height = 800             
+        title = 'US News Sentiment by Month',
+        height = 500,
+        width = 800,           
     )
     plotly.io.write_json(fig5_month, "static/js/fig5_month.json")
     return
@@ -318,22 +338,26 @@ def choropleth_us_byweekday(df):
     df_state_weekday = df_state_weekday.reset_index()
     
     # Create animation
+    df_state_weekday = df_state_weekday.rename(columns = {'article_sentiment':'Article Sentiment'})
+    df_state_weekday = df_state_weekday.rename(columns = {'weekday':'Day of the Week'})
+
     fig6_weekday = px.choropleth(df_state_weekday,               
         locations = "US_state_code",               
-        color = "article_sentiment",
-        animation_frame = "weekday",                
+        color = "Article Sentiment",
+        animation_frame = "Day of the Week",                
         hover_name = "state",  
         hover_data = {
-            "article_sentiment": True,
-            "weekday": True,
+            "Article Sentiment": True,
+            "Day of the Week": True,
             "US_state_code": False,
         },   
         color_continuous_scale = 'RdBu',
         range_color = (-0.6,0.6),
         locationmode = 'USA-states',
         scope = "usa",
-        title = 'US News Sentiment by Day of the Week (2015-2017)',
-        height = 800             
+        title = 'US News Sentiment by Day of the Week',
+        height = 500,
+        width = 800,           
     )
     plotly.io.write_json(fig6_weekday, "static/js/fig6_weekday.json")
     return
