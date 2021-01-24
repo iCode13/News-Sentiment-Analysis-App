@@ -1,26 +1,26 @@
 <img src=Readme-Images/header.png width=1000></img>
-#### Team Members: Amy Banerji, Alicia Pelkey, Rachel Reynolds, David Vance
 
 #### UT Data Analysis & Visualization Bootcamp | January 2021
+#### Team Members: Amy Banerji, Alicia Pelkey, Rachel Reynolds, David Vance
 
-## News Sentiment Analysis App
-##### [Link to App Deployed on Heroku](https://project3-news-app.herokuapp.com/)
+# News Sentiment Analysis App
 Over the past several years, there has been a visceral shift in news consumption for many people; from regular morning and evening news broadcasts to a 24-hour news cycle. People have feelings about the news, but our questions is: does the news itself project a particular feeling?
 
 With data gathered from the New York Times Archives API, we analyzed over 50,000 news articles covering a full 3-year span, from 2015 to 2017. Natural Language Processing was used to examine news sentiment across time, categories of news, and their geographic locations. Our app lets users explore the data through visualizations, search through articles by keyword, and test the sentiment of their own news headline!
+##### [Link to App Deployed on Heroku](https://project3-news-app.herokuapp.com/)
 
 ## Table of Contents
-* [Data Set](#data-set)
-* [Sentiment Analysis Using NLP](#sentiment-analysis-using-nlp)
+* [Dataset](#dataset)
+* [Sentiment Analysis Using Natural Language Processing](#sentiment-analysis-using-natural-language-processing)
 * [Technologies Used](#technologies-used)
 * [Data Analysis and Visualizations](#data-analysis-and-visualizations)
 * [Interactive Features](#interactive-features)
 * [Screenshots](#screenshots)
 * [Citations](#citations)
 
-## Data Set
+## Dataset
 * [New York Times Archives](https://developer.nytimes.com/docs/articlesearch-product/1/overview): 
-Collected data from news articles over a 3-year period from 2015 to 2017.
+Data from news articles over a 3-year period from 2015 to 2017.
 
 ## Sentiment Analysis Using Natural Language Processing
 Natural Language Processing (NLP) is a form of machine learning that gleans information from humans' spoken or written words. For this app, a type of NLP called Sentiment Analysis was performed that attempts to determine some measure of the "feeling" of a text, often described as the text's positivity or negativity. A simple form of sentiment analysis was employed that uses a "lexicon", or a list of words that have been assigned meanings. A program then applies a lexicon-based sentiment analysis to a text, and breaks the text down into "tokens" which are usually root words. The pre-assigned sentiment values for tokens found in the lexicon are summed or averaged for the text the program is analyzing to come up with a sentiment score.
@@ -65,11 +65,11 @@ Natural Language Processing (NLP) is a form of machine learning that gleans info
 
 ## Citations
 * VADER Sentiment Analysis: 
-    *  C.J. Hutto and E.E. Gilbert. "VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text." Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI (June 2014).
-* Natural Language Toolkit (NLTK) Project:
-    * Steven Bird, Edward Loper, and Ewan Klein. Natural Language Processing with Python. O’Reilly Media Inc. (2009).
-* NRCLex API:
-    * Mark C. Bailey (2019).
-* NRC Lexicon:
-    * National Research Council Canada (2016).
+   * C.J. Hutto and E.E. Gilbert. "VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text." Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI (June 2014).
+* Natural Language Toolkit (NLTK) Project: 
+   * Steven Bird, Edward Loper, and Ewan Klein. Natural Language Processing with Python. O’Reilly Media Inc. (2009).
+* NRCLex API: 
+   * Mark C. Bailey (2019).
+* NRC Lexicon: 
+   * National Research Council Canada (2016).
 
