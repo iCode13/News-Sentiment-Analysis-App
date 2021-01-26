@@ -230,10 +230,18 @@ def find_articles(keyword_type, find_string):
 
 
 def search_column(items, search_string):
+    search_terms = search_string.split()
     found = False
+    found_examples = []
     for item in items:
-        if search_string.lower() in item.lower():
-            found = True
+        terms_found = 0
+        for term in search_terms:
+            if term.lower() in item.lower():
+                terms_found += 1
+            if terms_found == len(search_terms):
+                found = True
+                found_examples.append(item)
+    if found: print(found_examples)
     return found
 
 
@@ -293,7 +301,7 @@ def emotion_plotter(text):
             if tag in morphy_tag.keys():
                 morphy_pos = morphy_tag[tag]
             else:
-                pos = ''
+                morphy_pos = ''
             if morphy_pos in ["a", "n", "v"]:
                 lemmatized_tokens.append(lemmatizer.lemmatize(word, pos=morphy_pos))
             else:
