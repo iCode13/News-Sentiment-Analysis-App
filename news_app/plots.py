@@ -131,7 +131,7 @@ def calendar_heatmap():
     
     cal_heatmap_df = pd.read_csv(os.path.join("news_app", "static", "data", "calendar_heatmap_new.csv"))
 
-    cal_heatmap_df["date"] = cal_heatmap_df["date"].apply(lambda x: datetime.strptime(x, "%Y-%m-%d"))
+    cal_heatmap_df["date"] = cal_heatmap_df["date"].apply(lambda x: datetime.strptime(x, "%m/%d/%Y"))
     cal_heatmap_df["top_headlines"] = cal_heatmap_df["top_headlines"].apply(lambda x: eval(x))
 
     df2015 = cal_heatmap_df.loc[cal_heatmap_df["date"].apply(lambda dt: dt.year == 2015)]
@@ -231,6 +231,7 @@ def calendar_heatmap():
         },
         "margin": {"l":100},
         "plot_bgcolor": "ghostwhite",
+        "height": 600,
     }
 
     heatmap_data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
@@ -238,54 +239,6 @@ def calendar_heatmap():
     
     return heatmap_data, heatmap_layout
 
-    # # Create heatmap csv
-    # df = pd.read_csv(os.path.join("news_app", "static", "data", "headlines_scores_keywords.csv"))
-
-    # df["dates"] = df["pub_date"].apply(lambda x: datetime.strptime(x, "%Y-%m-%d"))
-    # news_desks = []
-    # dates = []
-    # avg_day_scores = []
-    # top_headlines = []
-    # for desk in df["news_desk"].unique():
-    #     for day in df["dates"].unique():
-    #         headlines_dict = {
-    #             "headline": ["None", "None", "None"],
-    #             "score": [0, 0, 0]
-    #         }
-    #         filtered_df = df.loc[(df["dates"] == day) & (df["news_desk"] == desk) & (df["headline_score"] !=0)]
-    #         # print(filtered_df)
-    #         if filtered_df["headline_score"].to_list():
-    #             avg_day_scores.append(filtered_df["headline_score"].mean())
-    #             top_headlines_df = filtered_df.nlargest(3, "abs_headline_score")
-    #             for i in range(0, 3):
-    #                 if len(top_headlines_df["headline"].to_list()) >= (i + 1):
-    #                     headlines_dict["headline"][i] = top_headlines_df["headline"].to_list()[i]
-    #                 if len(top_headlines_df["headline_score"].to_list()) >= (i + 1):
-    #                     headlines_dict["score"][i] = top_headlines_df["headline_score"].to_list()[i] 
-    #             top_headlines.append(headlines_dict)
-    #         else:
-    #             avg_day_scores.append(0)
-
-    #         dates.append(day)
-    #         news_desks.append(desk)
-
-
-    # cal_heatmap_df_new = pd.DataFrame(
-    #     list(zip(
-    #         dates, 
-    #         news_desks, 
-    #         avg_day_scores,
-    #         top_headlines,
-    #     )),
-    #     columns=[
-    #         "date", 
-    #         "news_desk", 
-    #         "avg_score",
-    #         "top_headlines"
-    #     ])
-
-    # cal_heatmap_df_new.to_csv(os.path.join("news_app", "static", "data", "calendar_heatmap_new2.csv"), index=False, encoding="utf-8-sig")
-    # print(cal_heatmap_df_new.head(100))
 
 def box_plots(df_in):
     # Read in data
@@ -425,7 +378,7 @@ def linechart():
     linechart_df = pd.read_csv(os.path.join("news_app", "static", "data", "calendar_heatmap_new.csv"))
 
     linechart_df["date"] = linechart_df["date"].apply(
-        lambda x: datetime.strptime(x, "%Y-%m-%d")
+        lambda x: datetime.strptime(x, "%m/%d/%Y")
     )
     linechart_df["top_headlines"] = linechart_df["top_headlines"].apply(lambda x: eval(x))
 
@@ -437,13 +390,19 @@ def linechart():
         "Business": "rgba(255, 215, 0, 1)",  # "gold",
         "Science": "rgba(34, 139, 34, 1)",  # "forestgreen",
         "Arts&Leisure": "rgba(138, 43, 226, 1)",  # "blueviolet",
+        "Society": "rgba(30, 144, 255, 1)",  # "dodgerblue",
+        "Politics": "rgba(178, 34, 34, 1)",  # "firebrick",
+        "Climate": "rgba(255, 140, 0, 1)",  # "darkorange",
     }
 
     visible_dict = {
-        "Business": [True, False, False, False],
-        "National": [False, True, False, False],
-        "Arts&Leisure": [False, False, True, False],
-        "Science": [False, False, False, True],
+        "Business": [True, False, False, False, False, False, False, False],
+        "National": [False, True, False, False, False, False, False, False],
+        "Arts&Leisure": [False, False, True, False, False, False, False, False],
+        "Science": [False, False, False, True, False, False, False, False],
+        "Society": [False, False, False, False, True, False, False, False],
+        "Politics": [False, False, False, False, False, True, False, False],
+        "Climate": [False, False, False, False, False, False, True, False],
     }
 
     fig3 = go.Figure()
@@ -499,9 +458,9 @@ def linechart():
         updatemenus=[
             {
                 "type": "buttons",
-                "direction": "right",
+                "direction": "left",
                 "active": 0,
-                "x": 0.65,
+                "x": .8,
                 "y": 1.15,
                 "buttons": buttons,
             }
