@@ -12,10 +12,11 @@ With data gathered from the New York Times Archives API, we analyzed over 50,000
 ## Table of Contents
 * [Dataset](#dataset)
 * [Sentiment Analysis Using Natural Language Processing](#sentiment-analysis-using-natural-language-processing)
-* [Technologies Used](#technologies-used)
 * [Data Analysis and Visualizations](#data-analysis-and-visualizations)
 * [Interactive Features](#interactive-features)
 * [Screenshots](#screenshots)
+* [Technologies Used](#technologies-used)
+* [Limitations and Future Improvements](#limitations-and-future-improvements)
 * [Citations](#citations)
 
 ## Dataset
@@ -24,17 +25,6 @@ Data from news articles over a 3-year period from 2015 to 2017.
 
 ## Sentiment Analysis Using Natural Language Processing
 Natural Language Processing (NLP) is a form of machine learning that gleans information from humans' spoken or written words. For this app, a type of NLP called Sentiment Analysis was performed that attempts to determine some measure of the "feeling" of a text, often described as the text's positivity or negativity. A simple form of sentiment analysis was employed that uses a "lexicon", or a list of words that have been assigned meanings. A program then applies a lexicon-based sentiment analysis to a text, and breaks the text down into "tokens" which are usually root words. The pre-assigned sentiment values for tokens found in the lexicon are summed or averaged for the text the program is analyzing to come up with a sentiment score.
-
-## Technologies Used
-* New York Times and Google Geocoding API's
-* Machine Learning and Sentiment Analysis tools:
-    * Natural Language Toolkit (NLTK), scikit-learn, NRCLex, VADER
-* pandas, geopy, calmap, pycountry, us
-* Plotly, Matplotlib, D3
-* HTML, CSS, Jinja
-* Python, JavaScript
-* Flask
-* Heroku
 
 ## Data Analysis and Visualizations
 * Article vs headline score scatter, contour, regression plot.
@@ -58,19 +48,31 @@ Natural Language Processing (NLP) is a form of machine learning that gleans info
 <img src=Readme-Images/viz2.png width=500></img>
 
 ##### Geoviz Page:
-<img src=Readme-Images/geo.png width=500></img>
+<img src=Readme-Images/geoviz.png width=500></img>
 
 ##### Interactive Page:
-<img src=Readme-Images/interactive1.png width=500></img>
+<img src=Readme-Images/interactive.png width=500></img>
 
-## Limitations and Future Improvements:
-* Improve app performance.
+## Technologies Used
+* New York Times and Google Maps Geocoding API's
+* Machine Learning and Sentiment Analysis tools:
+    * Natural Language Toolkit (NLTK), scikit-learn, NRCLex, VADER
+* pandas, geopy, calmap, pycountry, us
+* Plotly, Matplotlib, D3
+* HTML, CSS, Jinja
+* Python, JavaScript
+* Flask
+* Heroku
+* Jupyter Notebook
+
+## Limitations and Future Improvements
+* App performance.
 * Extend the timeframe of the data collected to see what changes in sentiment occurred during the pandemic compared to prior years.
 * Test further methods and applications of n-grams for document classification and sentiment analysis.
 * Add features that let the user filter by time period, location, news type, etc.
 * Incorporate the search function to output vizzes that filter to user inputs.
 * Use more JavaScript to create more dynamic visualizations.
-* Lastly, but probably the biggest undertaking would be to build our own machine learning model for the sentiment analysis!
+* Lastly, but the most ambitious undertaking would be to build our own machine learning model for the sentiment analysis!
 
 ## Citations
 * VADER Sentiment Analysis: 
