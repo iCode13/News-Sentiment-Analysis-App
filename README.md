@@ -1,56 +1,75 @@
-# NY Times Sentiment Analysis Project
+<img src=Readme-Images/header.png width=1000></img>
 
-## Overview
-### Using a dataset of news headlines, perform EDA on sentiment trends
+#### UT Data Analysis & Visualization Bootcamp | January 2021
+#### Team Members: Amy Banerji, Alicia Pelkey, Rachel Reynolds, David Vance
 
-## Data Source
-* Option 1: [NY Times Archive API](https://developer.nytimes.com/docs/articlesearch-product/1/overview)
-    * Constrain searches by years (e.g. 2015-2017), include election year?
-    * Filter by news desk / article category
-* Option 2: UC Irvine Machine Learning ["News Aggregator" dataset](http://archive.ics.uci.edu/ml/datasets/News+Aggregator) (420K+ headines, categorized)
-* Option 3: ["Million Headlines" dataset](https://www.kaggle.com/therohk/million-headlines) (Australian Broadcasting Corporation news)
+# News Sentiment Analysis App
+Over the past several years, there has been a visceral shift in news consumption for many people; from regular morning and evening news broadcasts to a 24-hour news cycle. People have feelings about the news, but our questions is: does the news itself project a particular feeling?
 
-## Data Analysis
-* Sentiment analysis using... bing lexicon, nrc lexicon, AFIIN lexicon
-* Compare sentiment trends across... 
-    * days of the week
-    * months of the year
-    * seasonal events 
-        * holidays
-        * political elections
-        * entertainment seasons
-* Compare sentiments between categories of news
-    * political
-    * business
-    * entertainment
-    * science
+With data gathered from the New York Times Archives API, we analyzed over 50,000 news articles covering a full 3-year span, from 2015 to 2017. Natural Language Processing was used to examine news sentiment across time, categories of news, and their geographic locations. Our app lets users explore the data through visualizations, search through articles by keyword, and test the sentiment of their own news headline!
+##### [Link to App Deployed on Heroku](https://project3-news-app.herokuapp.com/)
 
-## Visualizations
-* Word clouds (most common words for different categories of articles)
-* Bar charts for different sentiments (most frequent terms for each sentiment, using NRC lexicon)
-* Interactive with user-selected...
-    * days of the week
-    * article category
-    * particular year
-* Network diagram showing "bigrams" (two words commonly seen together) 
-    * interactive?  
-    * let user search for a bigram and see how many times it appears?
-* Sentiment heatmap by geography
-    * Use byline, Google Maps API, & mapbox for locations
-    * Colorscale on AFIIN lexicon result (range -5 to +5)
-* [Other Samples](https://www.kaggle.com/xvivancos/analyzing-the-lord-of-the-rings-data) (Lord of the Rings analysis project)
+## Table of Contents
+* [Dataset](#dataset)
+* [Sentiment Analysis Using Natural Language Processing](#sentiment-analysis-using-natural-language-processing)
+* [Technologies Used](#technologies-used)
+* [Data Analysis and Visualizations](#data-analysis-and-visualizations)
+* [Interactive Features](#interactive-features)
+* [Screenshots](#screenshots)
+* [Citations](#citations)
 
-<img src=Readme-Images/wordcloud.png width=250></img>
-<img src=Readme-Images/barcharts.png height=400></img>
-<img src=Readme-Images/bigrams.png height=400></img>
+## Dataset
+* [New York Times Archives](https://developer.nytimes.com/docs/articlesearch-product/1/overview): 
+Data from news articles over a 3-year period from 2015 to 2017.
 
-## Project Elements // Roles & Responsibilities
-* Data scraping / cleaning - *Alicia*
-* Machine learning algorithm - *All together? Alicia, Amy, David, Rachel*
-* Static visualization(s) - *1 each? Alicia, Amy, David, Rachel*
-* Interactive visualization(s) - *?*
-* Frontend landing page - *Amy*
-* App structure & deployment - *David, Rachel*
+## Sentiment Analysis Using Natural Language Processing
+Natural Language Processing (NLP) is a form of machine learning that gleans information from humans' spoken or written words. For this app, a type of NLP called Sentiment Analysis was performed that attempts to determine some measure of the "feeling" of a text, often described as the text's positivity or negativity. A simple form of sentiment analysis was employed that uses a "lexicon", or a list of words that have been assigned meanings. A program then applies a lexicon-based sentiment analysis to a text, and breaks the text down into "tokens" which are usually root words. The pre-assigned sentiment values for tokens found in the lexicon are summed or averaged for the text the program is analyzing to come up with a sentiment score.
 
----
-#### Project Members: Alicia, Amy, David, Rachel
+## Technologies Used
+* New York Times and Google Geocoding API's
+* Machine Learning and Sentiment Analysis tools:
+    * Natural Language Toolkit (NLTK), scikit-learn, NRCLex, VADER
+* pandas, geopy, calmap, pycountry, us
+* Plotly, Matplotlib, D3
+* HTML, CSS, Jinja
+* Python, JavaScript
+* Flask
+* Heroku
+
+## Data Analysis and Visualizations
+* Article vs headline score scatter, contour, regression plot.
+* Article score box plot.
+* Average daily sentiment calendar heatmap.
+* Average daily sentiment line chart.
+* Frequency plots of "bigrams" (two words commonly seen together) and "trigrams" (three words commonly seen together).
+* Choropleth map animations of article sentiment by day of the week, month and over time in the US and across the globe.
+* Heatmap animation of headline sentiment score over time around the world.
+
+## Interactive Features
+* Sentiment Analyzer: Takes in a news headline as user input, and outputs overall sentiment as a "Senti-Meter" and a plot of the words' emotions.
+* Article Search: Takes in keyword(s) in a chosen category as user input, and outputs a random sample of up to 5 articles and a "Senti-Meter".
+
+## Screenshots
+##### Home Page:
+<img src=Readme-Images/index.png width=500></img>
+
+##### Visualizations Page:
+<img src=Readme-Images/viz1.png width=500></img>
+<img src=Readme-Images/viz2.png width=500></img>
+
+##### Geoviz Page:
+<img src=Readme-Images/geo.png width=500></img>
+
+##### Interactive Page:
+<img src=Readme-Images/interactive1.png width=500></img>
+
+## Citations
+* VADER Sentiment Analysis: 
+   * C.J. Hutto and E.E. Gilbert. "VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text." Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI (June 2014).
+* Natural Language Toolkit (NLTK) Project: 
+   * Steven Bird, Edward Loper, and Ewan Klein. Natural Language Processing with Python. O’Reilly Media Inc. (2009).
+* NRCLex API: 
+   * Mark C. Bailey (2019).
+* NRC Lexicon: 
+   * National Research Council Canada (2016).
+
