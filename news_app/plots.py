@@ -120,6 +120,7 @@ def article_vs_headline_plot(df_in):
         yaxis={"title": {"text": "Article Scores"}},
         paper_bgcolor="white",
         plot_bgcolor="ghostwhite",
+        legend={"title": {"text": "<b>News Desks<b>"}}
     )
 
     fig_data = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
@@ -221,7 +222,7 @@ def calendar_heatmap():
     plot_data = [trace2015, trace2016, trace2017]
 
     plot_layout = {
-        "title": "Average Daily Sentiment by News Desk",
+        "title": "Average Daily Headline Sentiment by News Desk",
         "xaxis_nticks": 12,
         "grid": {
             "rows": 3, 
@@ -284,6 +285,7 @@ def box_plots(df_in):
             "hovermode": "closest",
             "paper_bgcolor": "white",
             "plot_bgcolor": "ghostwhite",
+            "legend": {"title": {"text": "<b>News Desks</b>"}},
         }
 
     boxplot_data = json.dumps(plot_data, cls=plotly.utils.PlotlyJSONEncoder)
@@ -433,7 +435,7 @@ def linechart():
                 "method": "update",
                 "args": [
                     {"visible": visible_dict[desk]},
-                    {"title": f"Average Daily Sentiment for {desk} News"},
+                    {"title": f"Average Daily Headline Sentiment for {desk} News"},
                 ],
             }
         )
@@ -441,7 +443,7 @@ def linechart():
     fig3.data[0].update(visible=True)
 
     fig3.update_layout(
-        title="Average Daily Sentiment for Business News",
+        title="Average Daily Headline Sentiment for Business News",
         title_x=0.5,
         xaxis={"title": {"text": "Date"}},
         yaxis={"title": {"text": "Average Headline Score"}},
