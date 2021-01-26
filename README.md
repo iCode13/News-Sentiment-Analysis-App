@@ -42,7 +42,7 @@ Natural Language Processing (NLP) is a form of machine learning that gleans info
 * Average daily sentiment calendar heatmap.
 * Average daily sentiment line chart.
 * Frequency plots of "bigrams" (two words commonly seen together) and "trigrams" (three words commonly seen together).
-* Choropleth map animations of article sentiment by day of the week, month and over time in the US and across the globe.
+* Choropleth map animations of article sentiment by day of the week, month and over time within the US and across the globe.
 * Heatmap animation of headline sentiment score over time around the world.
 
 ## Interactive Features
@@ -62,6 +62,15 @@ Natural Language Processing (NLP) is a form of machine learning that gleans info
 
 ##### Interactive Page:
 <img src=Readme-Images/interactive1.png width=500></img>
+
+## Limitations and Future Improvements:
+* Improve app performance.
+* Extend the timeframe of the data collected to see what changes in sentiment occurred during the pandemic compared to prior years.
+* Test further methods and applications of n-grams for document classification and sentiment analysis.
+* Add features that let the user filter by time period, location, news type, etc.
+* Incorporate the search function to output vizzes that filter to user inputs.
+* Use more JavaScript to create more dynamic visualizations.
+* Lastly, but probably the biggest undertaking would be to build our own machine learning model for the sentiment analysis!
 
 ## Citations
 * VADER Sentiment Analysis: 
