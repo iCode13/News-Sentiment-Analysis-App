@@ -15,7 +15,7 @@ With data gathered from the New York Times Archives API, we analyzed over 50,000
 * [Data Analysis and Visualizations](#data-analysis-and-visualizations)
 * [Interactive Features](#interactive-features)
 * [Screenshots](#screenshots)
-* [Technologies Used](#technologies-used)
+* [Technologies](#technologies)
 * [Limitations and Future Improvements](#limitations-and-future-improvements)
 * [Citations](#citations)
 
@@ -53,7 +53,7 @@ Natural Language Processing (NLP) is a form of machine learning that gleans info
 ##### Interactive Page:
 <img src=Readme-Images/interactive.png width=500></img>
 
-## Technologies Used
+## Technologies
 * New York Times and Google Maps Geocoding API's
 * Machine Learning and Sentiment Analysis tools:
     * Natural Language Toolkit (NLTK), scikit-learn, NRCLex, VADER
@@ -83,4 +83,3 @@ Natural Language Processing (NLP) is a form of machine learning that gleans info
    * Mark C. Bailey (2019).
 * NRC Lexicon: 
    * National Research Council Canada (2016).
-
