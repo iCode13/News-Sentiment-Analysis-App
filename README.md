@@ -7,7 +7,7 @@
 Over the past several years, there has been a visceral shift in news consumption for many people; from regular morning and evening news broadcasts to a 24-hour news cycle. People have feelings about the news, but our questions is: does the news itself project a particular feeling?
 
 With data gathered from the New York Times Archives API, we analyzed over 50,000 news articles covering a full 3-year span, from 2015 to 2017. Natural Language Processing was used to examine news sentiment across time, categories of news, and their geographic locations. Our app lets users explore the data through visualizations, search through articles by keyword, and test the sentiment of their own news headline!
-##### [Link to App Deployed on Heroku](https://project3-news-app.herokuapp.com/)
+##### [Link to App Deployed on Heroku](https://news-sentiment-analysis-app.herokuapp.com/)
 
 ## Table of Contents
 * [Dataset](#dataset)
